@@ -1,6 +1,17 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import {
+  Geist,
+  Geist_Mono,
+  Figtree,
+  IBM_Plex_Mono,
+  Sora,
+} from "next/font/google";
 import "./globals.css";
+import Header from "@/components/header";
+import GridColumns from "@/components/providers/grid-provider";
+import GSAPProvider from "@/components/providers/gsap-provider";
+
+const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -9,6 +20,17 @@ const geistSans = Geist({
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
+  subsets: ["latin"],
+});
+
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+});
+
+const ibmPlexMono = IBM_Plex_Mono({
+  weight: ["400", "500", "600"],
+  variable: "--font-ibm-plex-mono",
   subsets: ["latin"],
 });
 
@@ -23,11 +45,15 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" className={figtree.variable}>
       <body
-        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+        className={`${geistSans.variable} ${ibmPlexMono.variable} ${sora.variable} antialiased`}
       >
-        {children}
+        <GSAPProvider>
+          {/*<GridColumns />*/}
+          <Header />
+          {children}
+        </GSAPProvider>
       </body>
     </html>
   );
