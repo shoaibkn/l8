@@ -17,7 +17,7 @@ export default function ServiceComponent(props: ServiceComponentProps) {
 
   if (isMobile) {
     return (
-      <div className="p-4 border-b border-muted-foreground/50">
+      <div className="p-4 border border-muted-foreground">
         {/*top*/}
         <div className="flex flex-row justify-between w-full pb-6">
           <h2 className="uppercase font-display text-lg font-semibold wrap-normal">

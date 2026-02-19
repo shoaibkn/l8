@@ -50,7 +50,7 @@ export default function RootLayout({
         className={`${geistSans.variable} ${ibmPlexMono.variable} ${sora.variable} antialiased`}
       >
         <GSAPProvider>
-          {/*<GridColumns />*/}
+          <GridColumns />
           <Header />
           {children}
         </GSAPProvider>

@@ -8,7 +8,7 @@ export default function WhyUs() {
         <Plus size={12} className="relative left-10.5 top-13.5" />
         <Plus size={12} className="relative right-10.5 top-13.5" />
       </div>
-      <section className="flex flex-col md:flex-row justify-between md:px-12 px-6 pt-12 bg-accent pb-24">
+      <section className="flex flex-col md:flex-row justify-between md:px-12 px-6 pt-12 bg-primary/10 pb-24">
         <div className="md:w-1/2 w-full border-t border-0.5 pt-12">
           <div className="flex flex-row gap-4 relative right-2 pb-12">
             <span className="flex flex-row">

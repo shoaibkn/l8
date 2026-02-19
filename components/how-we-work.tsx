@@ -9,7 +9,6 @@ export default function HowWeWork() {
     <section
       className={` py-6 md:py-12 md:w-1/4 md:h-[calc(100lvh+240px)] h-fit w-full  text-primary-foreground`}
     >
-      <GridColumns />
       <Separator className="opacity-20" />
       <div className="flex flex-row justify-between px-6 md:px-12 ">
         <Plus size={12} className="relative right-1.5 bottom-1.5" />

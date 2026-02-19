@@ -59,3 +59,53 @@ export const advantages = [
     htext: "",
   },
 ];
+
+export const howWeDoIt = [
+  {
+    id: "01",
+    text: "Understand your workflow — No jargon, just clear analysis",
+  },
+  {
+    id: "02",
+    text: "Spot automation opportunities — Specific, relevant use cases",
+  },
+  {
+    id: "03",
+    text: "We handle integration and ensure smooth operation.",
+  },
+  {
+    id: "04",
+    text: "Implement & optimize — We handle setup & integration",
+  },
+];
+
+export const delays = [
+  {
+    id: "01",
+    title: "Operational tasks",
+    description: "stay manual",
+    percentage: 83,
+    tag: "workload",
+  },
+  {
+    id: "02",
+    title: "Competitors",
+    description: "move faster",
+    percentage: 55,
+    tag: "growth",
+  },
+  {
+    id: "03",
+    title: "Missed",
+    description: "automation opportunities",
+    percentage: 66,
+    tag: "opportunities",
+  },
+  {
+    id: "04",
+    title: "Time wasted on",
+    description: "repetitive work",
+    percentage: 32,
+    tag: "time",
+  },
+];
