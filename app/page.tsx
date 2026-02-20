@@ -1,6 +1,8 @@
 import Banner from "@/components/banner";
+import NoSales from "@/components/banner-2";
 import CaseStudy from "@/components/case-study";
 import { ComponentExample } from "@/components/component-example";
+import FirstStep from "@/components/first-step";
 import Hero from "@/components/hero";
 import HowWeDoIt from "@/components/how-we-do-it";
 import HowWeWork from "@/components/how-we-work";
@@ -27,6 +29,8 @@ export default function Page() {
       <WhyDelayHurts />
       <CaseStudy />
       <MoreProjects />
+      <FirstStep />
+      <NoSales />
 
       {/*<HowWeWork />*/}
       {/*<HowWeWork />*/}

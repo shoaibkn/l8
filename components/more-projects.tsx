@@ -75,7 +75,7 @@ export default function MoreProjects() {
   };
 
   return (
-    <section className="grid grid-cols-4 items-start px-6 md:px-12 py-24">
+    <section className="grid md:grid-cols-4 items-start px-6 md:px-12 py-24 bg-accent">
       <div className="flex w-full flex-row gap-4 relative right-4 text-xs font-mono tracking-tighter items-center align-middle leading-4">
         <span className="flex flex-row items-center">
           <Dot className="" size={36} />
