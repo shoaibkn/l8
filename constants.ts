@@ -109,3 +109,66 @@ export const delays = [
     tag: "time",
   },
 ];
+
+export const projects = [
+  {
+    id: 1,
+    name: "FinEdge Advisors",
+    description:
+      "We help financial advisors streamline their workflows and increase efficiency by automating repetitive tasks and providing actionable insights.",
+    image:
+      "https://framerusercontent.com/images/vTF38nIULuOC9L0kUyVtYKOjxY.jpg?width=1334&height=750",
+    link: "https://www.finedgeadvisors.com/",
+    year: 2025,
+  },
+  {
+    id: 2,
+    name: "BrightPath International Logistics",
+    description:
+      "We help logistics companies optimize their operations and increase efficiency by automating repetitive tasks and providing actionable insights.",
+    image:
+      "https://framerusercontent.com/images/h2AhWtN9l4FSdpd8rdbtk5KLWk.jpg?width=1334&height=750",
+    link: "https://www.project.com/",
+    year: 2023,
+  },
+  {
+    id: 3,
+    name: "Norse Star",
+    description:
+      "Norse Star Collective came to us before peak season with a simple request: remove the busywork that slows support and frustrates customers. Weekly reporting also ate half a day and rarely arrived in time to guide decisions.",
+    image:
+      "https://framerusercontent.com/images/wSSi5QqI6FKfkpunJ76YhUf14.jpg?width=1334&height=750",
+    link: "https://www.project.com/",
+    year: 2023,
+  },
+  {
+    id: 4,
+    name: "EduCore Learning",
+    description:
+      "EduCore Learning is a leading provider of innovative solutions for the education industry. Our mission is to empower our clients with cutting-edge technology and expertise to enhance their operations and achieve sustainable growth.",
+    image:
+      "https://framerusercontent.com/images/xc3JwQyNE0EcHd5xTwp27Ax5Cbs.jpg?width=1334&height=750",
+    link: "https://www.project.com/",
+    year: 2023,
+  },
+  {
+    id: 5,
+    name: "CraftWorks Manufacturing",
+    description:
+      "CraftWorks Manufacturing is a leading provider of innovative solutions for the manufacturing industry. Our mission is to empower our clients with cutting-edge technology and expertise to enhance their operations and achieve sustainable growth.",
+    image:
+      "https://framerusercontent.com/images/aIhvHr5AkuOOk6pZbiSHnTyM.jpg?width=1334&height=750",
+    link: "https://www.project.com/",
+    year: 2023,
+  },
+  {
+    id: 6,
+    name: "HealthFirst Clinic",
+    description:
+      "HealthFirst Clinic is a leading provider of innovative solutions for the healthcare industry. Our mission is to empower our clients with cutting-edge technology and expertise to enhance their operations and achieve sustainable growth.",
+    image:
+      "https://framerusercontent.com/images/Y4IdL64jDBdXfChbWUnB9ESXk.jpg?width=1334&height=750",
+    link: "https://www.project.com/",
+    year: 2023,
+  },
+];
