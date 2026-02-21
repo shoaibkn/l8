@@ -12,6 +12,7 @@ import ServiceList from "@/components/services-list";
 import WhoWeAre from "@/components/who-we-are";
 import WhyDelayHurts from "@/components/why-delay-hurts";
 import WhyUs from "@/components/why-us";
+import WhyUsBanner from "@/components/why-us-banner";
 
 export default function Page() {
   return (
@@ -31,6 +32,7 @@ export default function Page() {
       <MoreProjects />
       <FirstStep />
       <NoSales />
+      <WhyUsBanner />
 
       {/*<HowWeWork />*/}
       {/*<HowWeWork />*/}

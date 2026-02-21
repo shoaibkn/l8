@@ -172,3 +172,27 @@ export const projects = [
     year: 2023,
   },
 ];
+
+export const whyUs = [
+  {
+    id: 1,
+    heading: "ROI Timeline",
+    title: "Most clients recover their investment within 1.5 months.",
+    tags: ["Avg. ROI", "in 45 days"],
+    growth: "45",
+  },
+  {
+    id: 2,
+    heading: "Time saved",
+    title: "On average, clients reduce manual work by 35 hours/month.",
+    tags: ["Hours saved", "every month"],
+    growth: "35+",
+  },
+  {
+    id: 3,
+    heading: "Workflow Impact",
+    title: "We help businesses automate up to 60% of repetitive workflows.",
+    tags: ["% of routine", "tasks", "automated"],
+    growth: "60",
+  },
+];
