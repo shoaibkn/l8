@@ -7,6 +7,8 @@ import Hero from "@/components/hero";
 import HowWeDoIt from "@/components/how-we-do-it";
 import HowWeWork from "@/components/how-we-work";
 import MoreProjects from "@/components/more-projects";
+import News from "@/components/news";
+import Newsletter from "@/components/newsletter";
 import Services from "@/components/services";
 import ServiceList from "@/components/services-list";
 import WhoWeAre from "@/components/who-we-are";
@@ -34,6 +36,8 @@ export default function Page() {
       <NoSales />
       <WhyUsBanner />
 
+      <News />
+      <Newsletter />
       {/*<HowWeWork />*/}
       {/*<HowWeWork />*/}
     </>

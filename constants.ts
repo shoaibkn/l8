@@ -196,3 +196,32 @@ export const whyUs = [
     growth: "60",
   },
 ];
+
+export const news = [
+  {
+    date: "September 18, 2025",
+    title: "5 Common Mistakes Businesses Make When Adopting AI",
+    image: "https://framerusercontent.com/images/cP1GNLLWaB10MRp9jKnjWjsZA.jpg",
+    link: "/blog/5-common-mistakes-businesses-make-when-adopting-ai",
+  },
+  {
+    date: "September 18, 2025",
+    title: "How to Spot AI Automation Opportunities in Your Workflow",
+    image: "https://framerusercontent.com/images/8sYyKjze9DvubaHdtzGBklijw.jpg",
+    link: "/blog/6-how-to-spot-ai-automation-opportunities-in-your-workflow",
+  },
+  {
+    date: "September 3, 2025",
+    title: "How a Small Retail Business Saved 50+ Hours per Month with AI",
+    image:
+      "https://framerusercontent.com/images/03R76oStnhKNMY4bxeygKssJa30.jpg",
+    link: "/blog/7-how-a-small-retail-business-saved-50-hours-per-month-with-ai",
+  },
+  {
+    date: "September 6, 2025",
+    title: "Top 10 AI Tools Every Business Should Consider",
+    image:
+      "https://framerusercontent.com/images/DCGJ88pWmiz6AQqW064VI9dPWb0.jpg",
+    link: "/blog/8-top-10-ai-tools-every-business-should-consider",
+  },
+];
