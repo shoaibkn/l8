@@ -1,7 +1,26 @@
+"use client";
+
+import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
+import { TextRoll } from "./motion-primitives/text-roll";
+
+function TextRollButton({ children, className, variant }: { children: string; className?: string; variant?: string }) {
+  const [hoverKey, setHoverKey] = useState(0);
+
+  return (
+    <Button
+      className={className}
+      variant={variant as any}
+      onMouseEnter={() => setHoverKey((k) => k + 1)}
+    >
+      <TextRoll key={hoverKey} duration={0.1}>{children}</TextRoll>
+      <ChevronRight />
+    </Button>
+  );
+}
 
 export default function Newsletter() {
   return (
@@ -20,13 +39,12 @@ export default function Newsletter() {
           placeholder="EMAIL@ADDRESS.COM"
         />
       </div>
-      <Button
+      <TextRollButton
         className="uppercase text-primary-foreground rounded-none w-full h-18 flex flex-row justify-between px-6 font-display border-0.5 border-b  isolate z-50 relative border-primary-foreground"
         variant={"link"}
       >
         Start Ai Journey
-        <ChevronRight />
-      </Button>
+      </TextRollButton>
     </section>
   );
 }

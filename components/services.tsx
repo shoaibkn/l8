@@ -1,5 +1,23 @@
+"use client";
+
+import { useState } from "react";
 import { Dot, Plus } from "lucide-react";
 import { Button } from "./ui/button";
+import { TextRoll } from "./motion-primitives/text-roll";
+
+function TextRollButton({ children, className, variant }: { children: string; className?: string; variant?: string }) {
+  const [hoverKey, setHoverKey] = useState(0);
+
+  return (
+    <Button
+      className={className}
+      variant={variant as any}
+      onMouseEnter={() => setHoverKey((k) => k + 1)}
+    >
+      <TextRoll key={hoverKey} duration={0.1}>{children}</TextRoll>
+    </Button>
+  );
+}
 
 export default function Services() {
   return (
@@ -28,12 +46,12 @@ export default function Services() {
             transparent, and focused on the areas of your business where AI
             makes a real impact.
           </p>
-          <Button
+          <TextRollButton
             variant="secondary"
             className="uppercase h-16 font-display rounded-full"
           >
             About us
-          </Button>
+          </TextRollButton>
         </div>
       </div>
       <div className="flex flex-row justify-between w-full">

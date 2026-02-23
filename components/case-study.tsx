@@ -1,6 +1,34 @@
+"use client";
+import { useState } from "react";
 import { ChevronRight, Dot, GripVertical, Quote } from "lucide-react";
 import { Button } from "./ui/button";
 import TextReveal from "./ui/text-reveal";
+import { TextRoll } from "./motion-primitives/text-roll";
+
+function TextRollButton({
+  children,
+  className,
+  variant,
+}: {
+  children: string;
+  className?: string;
+  variant?: string;
+}) {
+  const [hoverKey, setHoverKey] = useState(0);
+
+  return (
+    <Button
+      className={className}
+      variant={variant as any}
+      onMouseEnter={() => setHoverKey((k) => k + 1)}
+    >
+      <TextRoll key={hoverKey} duration={0.1}>
+        {children}
+      </TextRoll>
+      <ChevronRight />
+    </Button>
+  );
+}
 
 export default function CaseStudy() {
   return (
@@ -46,13 +74,12 @@ export default function CaseStudy() {
         </div>
 
         <div className="flex flex-row justify-end md:pl-12 pl-6 py-6">
-          <Button
+          <TextRollButton
             className="uppercase bg-primary/5 rounded-none w-full md:w-1/2 h-18 flex flex-row justify-between px-6 font-display border-0.5 border-b  isolate z-50 relative border-black"
             variant={"link"}
           >
             Start Ai Journey
-            <ChevronRight />
-          </Button>
+          </TextRollButton>
         </div>
 
         {/*Stats*/}

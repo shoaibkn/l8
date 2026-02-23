@@ -51,7 +51,7 @@ export default function RootLayout({
       >
         <GSAPProvider>
           <GridColumns />
-          <Header />
+
           {children}
         </GSAPProvider>
       </body>

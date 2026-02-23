@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { useRef, useEffect, useState } from "react";
 import Image from "next/image";
 import { Button } from "./ui/button";
 import HeaderContactUs from "./header-contact-us";
@@ -12,6 +12,30 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
 gsap.registerPlugin(ScrollTrigger);
+
+function AnimatedButton({
+  children,
+  className,
+  variant,
+}: {
+  children: string;
+  className?: string;
+  variant?: string;
+}) {
+  const [hoverKey, setHoverKey] = useState(0);
+
+  return (
+    <Button
+      className={className}
+      variant={variant as any}
+      onMouseEnter={() => setHoverKey((k) => k + 1)}
+    >
+      <TextRoll key={hoverKey} duration={0.1}>
+        {children}
+      </TextRoll>
+    </Button>
+  );
+}
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null);
@@ -64,7 +88,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="h-[calc(100lvh+240px)] w-full relative overflow-hidden flex flex-col justify-between"
+      className="h-[calc(100lvh+240px)] w-full relative overflow-hidden flex flex-col justify-between bg-primary/10"
     >
       <HeaderContactUs />
       <div className="absolute inset-0 z-100 bg-[url('https://www.transparenttextures.com/patterns/beige-paper.png')] opacity-80 pointer-events-none mix-blend-overlay" />
@@ -159,12 +183,15 @@ export default function Hero() {
         ref={buttonsRef}
         className="grid md:grid-cols-2 grid-cols-1 md:gap-4 gap-1 md:px-12 px-6 z-10 relative bottom-36 will-change-transform"
       >
-        <Button className="md:h-20 h-14 rounded-full">
-          <TextRoll duration={0.05}>SCHEDULE A FREE ASSESSMENT</TextRoll>
-        </Button>
-        <Button className="md:h-20 h-14 rounded-full" variant="secondary">
-          <TextRoll duration={0.05}>SEE HOW IT WORKS</TextRoll>
-        </Button>
+        <AnimatedButton className="md:h-20 h-14 rounded-full">
+          SCHEDULE A FREE ASSESSMENT
+        </AnimatedButton>
+        <AnimatedButton
+          className="md:h-20 h-14 rounded-full"
+          variant="secondary"
+        >
+          SEE HOW IT WORKS
+        </AnimatedButton>
       </div>
       <div className="w-full flex flex-row md:justify-end pb-24">
         <div className="md:w-1/2 w-3/5">
