@@ -2,28 +2,35 @@
 import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
-import { TextRoll } from "./motion-primitives/text-roll";
+import { TextLoop } from "./motion-primitives/text-loop";
 
 function TextRollButton({
   children,
   className,
   variant,
+  style,
 }: {
   children: string;
   className?: string;
   variant?: string;
+  style?: React.CSSProperties;
 }) {
-  const [hoverKey, setHoverKey] = useState(0);
+  const [cycleTrigger, setCycleTrigger] = useState(0);
 
   return (
     <Button
       className={className}
       variant={variant as any}
-      onMouseEnter={() => setHoverKey((k) => k + 1)}
+      style={style}
+      onMouseEnter={() => setCycleTrigger((t) => t + 1)}
     >
-      <TextRoll key={hoverKey} duration={0.1}>
-        {children}
-      </TextRoll>
+      <TextLoop 
+        cycleTrigger={cycleTrigger} 
+        transition={{ duration: 0.2 }}
+      >
+        <span>{children}</span>
+        <span>{children}</span>
+      </TextLoop>
       <ChevronRight />
     </Button>
   );
@@ -41,8 +48,15 @@ export default function NoSales() {
         </div>
         <div className="w-full flex flex-col md:pt-96 pt-48 md:col-span-2 lg:col-span-1">
           <TextRollButton
-            className="uppercase bg-primary/5 rounded-none w-full md:w-1/2 h-18 flex flex-row justify-between px-6 font-display border-0.5 border-b  isolate z-50 relative border-black"
-            variant={"link"}
+            className="uppercase bg-primary/5 rounded-none w-full md:w-1/2 h-18 flex flex-row  justify-between px-6 font-display border-0.5 border-b isolate z-50 relative"
+            variant={"outline"}
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, #ec4899, #8b5cf6, #3b82f6, #22c55e, #eab308, #f97316, #ef4444)",
+              backgroundSize: "100% 2px",
+              backgroundPosition: "bottom",
+              backgroundRepeat: "no-repeat",
+            }}
           >
             Start Ai Journey
           </TextRollButton>

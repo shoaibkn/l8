@@ -4,17 +4,20 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 
 export default function WhoWeAre() {
   return (
-    <section className="md:w-1/2 md:h-fit py-20 flex flex-col justify-between text-primary-foreground">
+    <section className="md:h-fit col-span-2 py-20 flex flex-col justify-between text-primary-foreground">
       {/*Top*/}
       <div className="flex flex-row justify-start px-6 md:pl-0">
-        <div className="flex flex-row gap-4">
-          <span className="flex flex-row">
-            <Dot /> 01
+        <div className="flex flex-row gap-4 relative md:right-2 right-10 text-xs font-mono tracking-tighter items-center h-fit align-middle leading-4  ">
+          <span className="flex flex-row items-center">
+            <Dot className="" size={36} />
+            <span className="relative right-2">01</span>
           </span>
-          <h4 className="text-muted-foreground">WHO WE ARE</h4>
+          <h4 className="uppercase text-muted-foreground relative right-2">
+            WHO WE ARE
+          </h4>
         </div>
       </div>
-      <div className="h-fit px-6 md:pr-12 md:pl-0  py-6">
+      <div className="h-fit md:pl-0  py-6">
         <TextReveal
           mode="opacity"
           duration={5}

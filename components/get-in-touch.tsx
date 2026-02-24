@@ -9,7 +9,15 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { TextRoll } from "./motion-primitives/text-roll";
 
-function TextRollButton({ children, className, variant }: { children: string; className?: string; variant?: string }) {
+function TextRollButton({
+  children,
+  className,
+  variant,
+}: {
+  children: string;
+  className?: string;
+  variant?: string;
+}) {
   const [hoverKey, setHoverKey] = useState(0);
 
   return (
@@ -18,7 +26,9 @@ function TextRollButton({ children, className, variant }: { children: string; cl
       variant={variant as any}
       onMouseEnter={() => setHoverKey((k) => k + 1)}
     >
-      <TextRoll key={hoverKey} duration={0.1}>{children}</TextRoll>
+      <TextRoll key={hoverKey} duration={0.05}>
+        {children}
+      </TextRoll>
       <ChevronRight />
     </Button>
   );
@@ -34,7 +44,7 @@ export default function GetInTouch() {
           className="relative md:right-10.5 right-4.5 bottom-1.5"
         />
       </div>
-      <div className="px-6 md:px-12 pt-48 grid grid-cols-4 h-full">
+      <div className="px-6 md:px-12 pt-48 md:grid md:grid-cols-4 flex flex-col h-full">
         <div className="flex flex-row gap-4 relative right-2 text-xs font-mono tracking-tighter items-center h-fit align-middle leading-4  ">
           <span className="flex flex-row items-center">
             <Dot className="" size={36} />
@@ -44,7 +54,7 @@ export default function GetInTouch() {
             Ready to Start?
           </h4>
         </div>
-        <div className="col-span-3 flex flex-row justify-between">
+        <div className="col-span-3 flex md:flex-row flex-col justify-between">
           <div>
             <h1 className="font-display w-full wrap-break-word leading-[clamp(2rem,6vw,6rem)] uppercase text-primary text-[clamp(2rem,6vw,8rem)] font-semibold tracking-tighter">
               GET IN TOUCH
@@ -62,7 +72,7 @@ export default function GetInTouch() {
             ))}
           </div>
         </div>
-        <div></div>
+        <div className="hidden md:block"></div>
         <div className="w-full border-b border-primary/40 h-fit focus-within:border-primary">
           <Label className="px-4 text-muted-foreground py-2 text-xs font-mono tracking-tighter uppercase">
             Name
@@ -106,7 +116,7 @@ export default function GetInTouch() {
           <span>(+91) 827 949 7847</span>
           <span>hello@lumin8.in</span>
         </div>
-        <div></div>
+        <div className="hidden md:block"></div>
         <div className="text-right">Back to top</div>
       </div>
     </section>

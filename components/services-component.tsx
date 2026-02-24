@@ -17,7 +17,7 @@ export default function ServiceComponent(props: ServiceComponentProps) {
 
   if (isMobile) {
     return (
-      <div className="p-4 border border-muted-foreground">
+      <div className="p-4 border-b border-muted-foreground/40">
         {/*top*/}
         <div className="flex flex-row justify-between w-full pb-6">
           <h2 className="uppercase font-display text-lg font-semibold wrap-normal">
@@ -61,7 +61,7 @@ export default function ServiceComponent(props: ServiceComponentProps) {
       <h2 className="uppercase font-display text-lg font-semibold relative right-6">
         {title}
       </h2>
-      <div className="h-48 rounded-4xl relative overflow-hidden mx-3 w-full">
+      <div className="h-48 rounded-4xl relative overflow-hidden mx-3 w-full border-primary/50  border-10 p-4">
         <Image
           src={image}
           alt={title}

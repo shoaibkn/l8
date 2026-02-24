@@ -6,7 +6,6 @@ import { Button } from "./ui/button";
 import HeaderContactUs from "./header-contact-us";
 import ReviewAvatars from "./review-avatars";
 import { TextRoll } from "./ui/text-roll";
-import { TextEffect } from "./ui/text-effect";
 import { ClientProgressiveBlurSlider } from "./client-slider";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -20,14 +19,14 @@ function AnimatedButton({
 }: {
   children: string;
   className?: string;
-  variant?: string;
+  variant?: "ghost" | "outline" | "default" | "secondary";
 }) {
   const [hoverKey, setHoverKey] = useState(0);
 
   return (
     <Button
       className={className}
-      variant={variant as any}
+      variant={variant}
       onMouseEnter={() => setHoverKey((k) => k + 1)}
     >
       <TextRoll key={hoverKey} duration={0.1}>
@@ -44,9 +43,58 @@ export default function Hero() {
   const headingRef = useRef<HTMLHeadingElement>(null);
   const textRef = useRef<HTMLDivElement>(null);
   const buttonsRef = useRef<HTMLDivElement>(null);
+  const reviewAvatarsRef = useRef<HTMLDivElement>(null);
+  const subTextRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      gsap.fromTo(
+        headingRef.current,
+        { y: "20vh", clipPath: "inset(0 0 100% 0)" },
+        {
+          y: 0,
+          duration: 1.2,
+          ease: "power3.out",
+          clipPath: "inset(0 0 0% 0)",
+        },
+      );
+
+      gsap.fromTo(
+        reviewAvatarsRef.current,
+        { y: "15vh", opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: 0.8,
+        },
+      );
+
+      gsap.fromTo(
+        subTextRef.current,
+        { y: "-10vh", opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: 1.2,
+        },
+      );
+
+      gsap.fromTo(
+        buttonsRef.current,
+        { y: "20vh", opacity: 0 },
+        {
+          y: 0,
+          opacity: 1,
+          duration: 0.8,
+          ease: "power3.out",
+          delay: 1.6,
+        },
+      );
+
       const trigger = {
         trigger: sectionRef.current,
         start: "top top",
@@ -88,7 +136,7 @@ export default function Hero() {
   return (
     <section
       ref={sectionRef}
-      className="h-[calc(100lvh+240px)] w-full relative overflow-hidden flex flex-col justify-between bg-primary/10"
+      className="h-[calc(100lvh)] w-full relative overflow-hidden flex flex-col justify-between bg-primary/10"
     >
       <HeaderContactUs />
       <div className="absolute inset-0 z-100 bg-[url('https://www.transparenttextures.com/patterns/beige-paper.png')] opacity-80 pointer-events-none mix-blend-overlay" />
@@ -114,11 +162,14 @@ export default function Hero() {
           ref={textRef}
           className="md:w-1/2 w-3/5 md:right-0 absolute flex flex-col justify-center items-start h-full will-change-transform gap-24 pt-48"
         >
-          <div className="pl-6 md:px-0 absolute top-64">
+          <div
+            ref={reviewAvatarsRef}
+            className="pl-6 md:px-0 absolute top-64 opacity-0"
+          >
             <ReviewAvatars />
           </div>
 
-          <div className="pl-6 md:pl-0">
+          {/*<div className="pl-6 md:pl-0">
             <h3 className="font-display tracking-tighter text-left w-full md:px-0 text-[clamp(1.5rem,4vw,5rem)] font-bold">
               FOR YOUR BUSINESS
             </h3>
@@ -126,43 +177,32 @@ export default function Hero() {
               We help businesses apply AI where it actually matters —
               <p className="text-primary">without the noise</p>
             </span>
-          </div>
+          </div>*/}
         </div>
       </div>
 
-      <h1
-        ref={headingRef}
-        className="text-[clamp(4rem,12vw,16rem)] tracking-tighter font-bold font-display md:text-nowrap absolute w-dvw h-screen flex flex-col justify-center md:text-center text-left pl-6 md:pl-0 will-change-transform mix-blend-difference text-white"
-      >
-        <TextEffect
-          per="line"
-          preset="slide"
-          variants={{
-            container: {
-              hidden: { opacity: 0 },
-              visible: {
-                opacity: 1,
-                transition: { staggerChildren: 1 },
-              },
-            },
-            item: {
-              hidden: {
-                opacity: 0,
-                y: 40,
-              },
-              visible: {
-                opacity: 1,
-                y: 0,
-                transition: {
-                  duration: 0.9,
-                },
-              },
-            },
-          }}
+      <div className="absolute w-dvw h-screen flex flex-col justify-center md:text-center text-left pl-6 md:pl-0">
+        <h1
+          ref={headingRef}
+          className="text-[clamp(4rem,12vw,16rem)] tracking-tighter font-bold font-display md:text-nowrap mix-blend-difference text-white will-change-transform"
+          style={{ clipPath: "inset(0 0 100% 0)" }}
         >
           A CLEAR AI PLAN
-        </TextEffect>
-      </h1>
+        </h1>
+        <div className="grid md:grid-cols-4">
+          <div></div>
+          <div></div>
+          <div ref={subTextRef} className="col-span-2 opacity-0">
+            <h3 className="font-display tracking-tighter text-left w-full md:px-0 text-[clamp(1.5rem,4vw,5rem)] font-bold">
+              FOR YOUR BUSINESS
+            </h3>
+            <span className="w-full wrap-normal text-left md:text-lg text-sm font-medium text-muted-foreground flex flex-row flex-wrap">
+              We help businesses apply AI where it actually matters —
+              <p className="text-primary">without the noise</p>
+            </span>
+          </div>
+        </div>
+      </div>
       {/*Image Mobile*/}
       <div className="w-1/2 h-full absolute md:hidden right-0 -z-10 overflow-hidden">
         <div
@@ -181,7 +221,7 @@ export default function Hero() {
 
       <div
         ref={buttonsRef}
-        className="grid md:grid-cols-2 grid-cols-1 md:gap-4 gap-1 md:px-12 px-6 z-10 relative bottom-36 will-change-transform"
+        className="grid md:grid-cols-2 grid-cols-1 md:gap-4 gap-1 md:px-12 px-6 z-10 relative bottom-36 will-change-transform opacity-0"
       >
         <AnimatedButton className="md:h-20 h-14 rounded-full">
           SCHEDULE A FREE ASSESSMENT
@@ -193,11 +233,11 @@ export default function Hero() {
           SEE HOW IT WORKS
         </AnimatedButton>
       </div>
-      <div className="w-full flex flex-row md:justify-end pb-24">
+      {/*<div className="w-full flex flex-row md:justify-end pb-24">
         <div className="md:w-1/2 w-3/5">
           <ClientProgressiveBlurSlider />
         </div>
-      </div>
+      </div>*/}
     </section>
   );
 }

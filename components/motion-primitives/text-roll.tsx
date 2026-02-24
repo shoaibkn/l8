@@ -25,6 +25,7 @@ export type TextRollProps = {
     };
   };
   onAnimationComplete?: () => void;
+  stagger?: boolean;
 };
 
 export function TextRoll({
@@ -36,17 +37,29 @@ export function TextRoll({
   transition = { ease: 'easeIn' },
   variants,
   onAnimationComplete,
+  stagger = true,
 }: TextRollProps) {
-  const defaultVariants = {
-    enter: {
-      initial: { rotateX: 0 },
-      animate: { rotateX: 90 },
-    },
-    exit: {
-      initial: { rotateX: 90 },
-      animate: { rotateX: 0 },
-    },
-  } as const;
+  const defaultVariants = stagger
+    ? {
+        enter: {
+          initial: { rotateX: 0 },
+          animate: { rotateX: 90 },
+        },
+        exit: {
+          initial: { rotateX: 90 },
+          animate: { rotateX: 0 },
+        },
+      }
+    : {
+        enter: {
+          initial: { rotateX: 90 },
+          animate: { rotateX: 0 },
+        },
+        exit: {
+          initial: { rotateX: 0 },
+          animate: { rotateX: -90 },
+        },
+      } as const;
 
   const letters = children.split('');
 
@@ -70,7 +83,7 @@ export function TextRoll({
               transition={{
                 ...transition,
                 duration,
-                delay: getEnterDelay(i),
+                delay: stagger ? getEnterDelay(i) : 0,
               }}
             >
               {letter === ' ' ? '\u00A0' : letter}
@@ -82,7 +95,7 @@ export function TextRoll({
               transition={{
                 ...transition,
                 duration,
-                delay: getExitDelay(i),
+                delay: stagger ? getExitDelay(i) : 0,
               }}
               onAnimationComplete={
                 letters.length === i + 1 ? onAnimationComplete : undefined

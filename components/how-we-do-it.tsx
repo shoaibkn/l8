@@ -6,7 +6,15 @@ import HowWeDoItContainer from "./how-we-do-it-container";
 import { Button } from "./ui/button";
 import { TextRoll } from "./motion-primitives/text-roll";
 
-function TextRollButton({ children, className, variant }: { children: string; className?: string; variant?: string }) {
+function TextRollButton({
+  children,
+  className,
+  variant,
+}: {
+  children: string;
+  className?: string;
+  variant?: string;
+}) {
   const [hoverKey, setHoverKey] = useState(0);
 
   return (
@@ -15,7 +23,9 @@ function TextRollButton({ children, className, variant }: { children: string; cl
       variant={variant as any}
       onMouseEnter={() => setHoverKey((k) => k + 1)}
     >
-      <TextRoll key={hoverKey} duration={0.1}>{children}</TextRoll>
+      <TextRoll key={hoverKey} duration={0.1}>
+        {children}
+      </TextRoll>
       <ChevronRight />
     </Button>
   );
@@ -34,7 +44,7 @@ export default function HowWeDoIt() {
             <div className="flex flex-row gap-4 relative right-2 pb-12 text-xs font-mono tracking-tighter items-center align-middle leading-4">
               <span className="flex flex-row items-center">
                 <Dot className="" size={36} />
-                <span className="relative right-2">05</span>
+                <span className="relative right-2">04</span>
               </span>
               <h4 className="text-muted-foreground relative right-2">
                 HOW WE DO IT?
@@ -42,7 +52,7 @@ export default function HowWeDoIt() {
             </div>
             {/*main Heading*/}
             <div className="flex flex-col h-fit gap-4 pb-24 justify-between md:justify-start">
-              <span className="font-display wrap-break-word leading-[clamp(5rem,5vw,6rem)] uppercase text-primary/50 text-[clamp(4rem,8vw,8rem)] font-semibold tracking-tighter">
+              <span className="font-display wrap-break-word leading-[clamp(4rem,8vw,8rem)] uppercase text-primary/50 text-[clamp(4rem,8vw,8rem)] font-semibold tracking-tighter">
                 The fast track to{" "}
                 <span className="text-primary">AI Success</span>
               </span>
@@ -52,7 +62,7 @@ export default function HowWeDoIt() {
               </p>
             </div>
           </div>
-          <div>
+          <div className="flex flex-col justify-center">
             <HowWeDoItContainer />
           </div>
         </div>

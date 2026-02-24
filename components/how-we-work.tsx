@@ -7,14 +7,14 @@ import GridColumns from "./providers/grid-provider";
 export default function HowWeWork() {
   return (
     <section
-      className={` py-6 md:py-12 md:w-1/4 md:h-[calc(100lvh+240px)] h-fit w-full  text-primary-foreground`}
+      className={`py-6 md:py-12 md:h-[calc(100lvh+240px)] h-fit text-primary-foreground`}
     >
       <Separator className="opacity-20" />
-      <div className="flex flex-row justify-between px-6 md:px-12 ">
+      <div className="flex flex-row justify-between">
         <Plus size={12} className="relative right-1.5 bottom-1.5" />
         <Plus size={12} className="relative left-1.5 bottom-1.5" />
       </div>
-      <div className="p-4 md:p-2 pb-0 flex flex-col mx-6 md:ml-12 md:mr-0 border-b border-muted-foreground border-0.5">
+      <div className="p-4 md:p-2 pb-0 flex flex-col md:mr-0 border-b border-muted-foreground border-0.5">
         {/*Top*/}
 
         <div className="flex flex-row justify-between text-xs items-center">
@@ -46,8 +46,8 @@ export default function HowWeWork() {
           />
         </div>
       </div>
-      <div className="h-fit border-b border-muted-foreground border-0.5 px-6 md:pl-12 md:pr-0 py-6">
-        <TextReveal className="text-[clamp(0.4rem,1.6vw,1.6rem)] md:text-[clamp(0.4rem,1vw,1.6rem)] md:text-right text-wrap uppercase text-muted-foreground">
+      <div className="h-fit border-b border-muted-foreground border-0.5 py-6">
+        <TextReveal className="text-[clamp(1rem,1.6vw,1.6rem)] md:text-[clamp(0.4rem,1vw,1.6rem)] uppercase text-muted-foreground">
           We&apos;re a hands-on team of AI consultants focused on helping small
           and mid-size businesses use automation where it matters most
         </TextReveal>
