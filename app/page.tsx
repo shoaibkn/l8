@@ -5,6 +5,7 @@ import { ComponentExample } from "@/components/component-example";
 import ContactUs from "@/components/contact-us";
 import Faq from "@/components/faq";
 import FirstStep from "@/components/first-step";
+import Footer from "@/components/footer";
 import GetInTouch from "@/components/get-in-touch";
 import Header from "@/components/header";
 import Hero from "@/components/hero";
@@ -26,7 +27,6 @@ export default function Page() {
     <>
       {/*<Nav />*/}
 
-      <Header />
       <Hero />
       <div className="bg-primary/90 md:grid md:grid-cols-4 flex flex-col md:justify-between w-full px-6 md:px-12">
         <HowWeWork />
@@ -48,7 +48,7 @@ export default function Page() {
       <Newsletter />
       <Faq />
       <ContactUs />
-      <GetInTouch />
+
       {/*<HowWeWork />*/}
       {/*<HowWeWork />*/}
     </>

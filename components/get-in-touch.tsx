@@ -8,6 +8,7 @@ import { Label } from "./ui/label";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { TextRoll } from "./motion-primitives/text-roll";
+import Image from "next/image";
 
 function TextRollButton({
   children,
@@ -36,7 +37,7 @@ function TextRollButton({
 
 export default function GetInTouch() {
   return (
-    <section className=" bg-primary/10 h-screen bg-[url('https://framerusercontent.com/images/VulBQhVJJgXCyTIKKvhsZMa5TU.png')] bg-contain bg-bottom bg-no-repeat">
+    <section className=" bg-primary/10 z-50 h-screen bg-[url('https://framerusercontent.com/images/VulBQhVJJgXCyTIKKvhsZMa5TU.png')] bg-contain bg-bottom bg-no-repeat pointer-events-auto relative">
       <div className="flex absolute flex-row justify-between w-full text-primary border-t mt-8 border-primary/10">
         <Plus size={12} className="relative md:left-10.5 left-4.5 bottom-1.5" />
         <Plus
@@ -111,10 +112,20 @@ export default function GetInTouch() {
         >
           Let&apos;s talk
         </TextRollButton>
-        <div>Lumin8</div>
-        <div className="flex flex-col gap-1 text-right">
-          <span>(+91) 827 949 7847</span>
-          <span>hello@lumin8.in</span>
+        <Image src="/logo-black.svg" alt="Logo" width={180} height={64} />
+        <div className="flex flex-col gap-1 text-right w-full items-end ">
+          <Link
+            href="tel:+918279497847"
+            className="hover:bg-primary hover:text-primary-foreground w-fit"
+          >
+            (+91) 827 949 7847
+          </Link>
+          <Link
+            href="mailto:hello@lumin8.in"
+            className="hover:bg-primary hover:text-primary-foreground w-fit font-display uppercase text-xl font-bold tracking-tighter"
+          >
+            hello@lumin8.in
+          </Link>
         </div>
         <div className="hidden md:block"></div>
         <div className="text-right">Back to top</div>

@@ -49,6 +49,17 @@ export default function Hero() {
   useEffect(() => {
     const ctx = gsap.context(() => {
       gsap.fromTo(
+        imageRef.current,
+        { clipPath: "inset(100% 0 0 0)" },
+        {
+          clipPath: "inset(0% 0 0 0)",
+          duration: 1,
+          ease: "power3.out",
+          delay: 0.2,
+        }
+      );
+
+      gsap.fromTo(
         headingRef.current,
         { y: "20vh", clipPath: "inset(0 0 100% 0)" },
         {

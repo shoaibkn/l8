@@ -22,6 +22,7 @@
     "hooks": "@/hooks"
   },
   "registries": {
-    "@limeplay": "https://limeplay.winoffrg.dev/r/{name}.json"
+    "@limeplay": "https://limeplay.winoffrg.dev/r/{name}.json",
+    "@shadcn-editor": "https://shadcn-editor.vercel.app/r/{name}.json"
   }
 }

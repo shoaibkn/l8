@@ -10,6 +10,8 @@ import "./globals.css";
 import Header from "@/components/header";
 import GridColumns from "@/components/providers/grid-provider";
 import GSAPProvider from "@/components/providers/gsap-provider";
+import GetInTouch from "@/components/get-in-touch";
+import Footer from "@/components/footer";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
@@ -52,8 +54,10 @@ export default function RootLayout({
         <div className="bg"></div>
         <GSAPProvider>
           <GridColumns />
-
+          <Header />
           {children}
+          <GetInTouch />
+          <Footer />
         </GSAPProvider>
       </body>
     </html>

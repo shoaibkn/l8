@@ -8,17 +8,19 @@ export default function NewsContainer({
   link,
   title,
   height,
+  slug,
 }: {
   date: string;
   image: string;
   link: string;
   title: string;
   height: string;
+  slug: string;
 }) {
   return (
     <Link
-      href={link}
-      className={`relative w-full flex flex-col justify-start gap-0 border-t md:border-none border-primary/20 border-0.5`}
+      href={`/blog/${slug}`}
+      className={`relative w-full flex flex-col justify-start gap-0 border-t md:border-none border-primary/20 border-0.5 pb-24`}
     >
       <div className="flex w-full flex-row gap-4 relative text-xs font-mono tracking-tighter items-center right-4 leading-4">
         <span className="flex flex-row items-center">
