@@ -1,9 +1,25 @@
-import { news } from "@/constants";
+import NewsContainer from "@/components/news-container";
 import { ArrowUpRight, Dot } from "lucide-react";
 import Link from "next/link";
-import NewsContainer from "./news-container";
 
-export default function News() {
+async function getBlogs() {
+  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
+  
+  try {
+    const res = await fetch(`${baseUrl}/api/blogs`, {
+      cache: "no-store",
+    });
+    if (!res.ok) return [];
+    return res.json();
+  } catch {
+    return [];
+  }
+}
+
+export default async function News() {
+  const blogs = await getBlogs();
+  const displayBlogs = blogs.slice(0, 4);
+
   return (
     <section className="bg-primary/20 h-fit px-6 md:px-12 py-12">
       <div className="grid grid-cols-4">
@@ -35,9 +51,23 @@ export default function News() {
         </div>
       </div>
       <div className="grid md:grid-cols-4">
-        {news.map((blog) => (
-          <NewsContainer key={blog.title} {...blog} height="full" />
-        ))}
+        {displayBlogs.length > 0 ? (
+          displayBlogs.map((blog: any) => (
+            <NewsContainer
+              key={blog._id}
+              date={blog.date}
+              title={blog.title}
+              image={blog.coverImage || ""}
+              slug={blog.slug}
+              link={`/blog/${blog.slug}`}
+              height="full"
+            />
+          ))
+        ) : (
+          <div className="col-span-4 text-center py-12 text-muted-foreground">
+            No blogs yet
+          </div>
+        )}
       </div>
     </section>
   );

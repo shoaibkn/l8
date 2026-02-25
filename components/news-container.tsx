@@ -20,7 +20,7 @@ export default function NewsContainer({
   return (
     <Link
       href={`/blog/${slug}`}
-      className={`relative w-full flex flex-col justify-start gap-0 border-t md:border-none border-primary/20 border-0.5 pb-24`}
+      className={`relative w-full flex flex-col justify-start gap-0 border-t md:border-none border-primary/20 border-0.5 pb-24 group overflow-hidden`}
     >
       <div className="flex w-full flex-row gap-4 relative text-xs font-mono tracking-tighter items-center right-4 leading-4">
         <span className="flex flex-row items-center">
@@ -34,7 +34,7 @@ export default function NewsContainer({
         alt={title}
         width={800}
         height={450}
-        className="w-full h-auto"
+        className="w-full h-auto transition-transform duration-500 ease-out group-hover:scale-105"
       />
       <div className="p-2 font-display mb-8">{title}</div>
     </Link>

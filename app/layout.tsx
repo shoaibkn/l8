@@ -51,10 +51,10 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${ibmPlexMono.variable} ${sora.variable} antialiased`}
       >
-        <div className="bg"></div>
+        {/*<div className="bg"></div>*/}
         <GSAPProvider>
           <GridColumns />
-          <Header />
+
           {children}
           <GetInTouch />
           <Footer />
