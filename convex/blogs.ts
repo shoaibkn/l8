@@ -75,8 +75,7 @@ export const getBlogBySlug = query({
   args: { slug: v.string() },
   handler: async (ctx, args) => {
     const blog = await ctx.db.query("blogs")
-      .withIndex("by_slug")
-      .filter((q) => q.eq("slug", args.slug))
+      .withIndex("by_slug", (q) => q.eq("slug", args.slug))
       .first();
     return blog;
   },

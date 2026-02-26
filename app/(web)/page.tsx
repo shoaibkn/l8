@@ -26,7 +26,7 @@ export default function Page() {
   return (
     <>
       {/*<Nav />*/}
-      <Header />
+      {/*<Header />*/}
       <Hero />
       <div className="bg-primary/90 md:grid md:grid-cols-4 flex flex-col md:justify-between w-full px-6 md:px-12">
         <HowWeWork />

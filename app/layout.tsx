@@ -1,27 +1,15 @@
 import type { Metadata } from "next";
-import {
-  Geist,
-  Geist_Mono,
-  Figtree,
-  IBM_Plex_Mono,
-  Sora,
-} from "next/font/google";
+import { Geist, Figtree, IBM_Plex_Mono, Sora } from "next/font/google";
 import "./globals.css";
-import Header from "@/components/header";
 import GridColumns from "@/components/providers/grid-provider";
 import GSAPProvider from "@/components/providers/gsap-provider";
 import GetInTouch from "@/components/get-in-touch";
-import Footer from "@/components/footer";
+import { TooltipProvider } from "@/components/ui/tooltip";
 
 const figtree = Figtree({ subsets: ["latin"], variable: "--font-sans" });
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
   subsets: ["latin"],
 });
 
@@ -47,17 +35,14 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={figtree.variable}>
+    <html lang="en" className={figtree.variable} suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${ibmPlexMono.variable} ${sora.variable} antialiased`}
       >
         {/*<div className="bg"></div>*/}
         <GSAPProvider>
-          <GridColumns />
-
-          {children}
-          <GetInTouch />
-          <Footer />
+          <TooltipProvider>{children}</TooltipProvider>
+          {/*<Footer />*/}
         </GSAPProvider>
       </body>
     </html>

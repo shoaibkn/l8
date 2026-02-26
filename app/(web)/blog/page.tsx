@@ -1,6 +1,4 @@
 import NewsContainer from "@/components/news-container";
-import { ArrowUpRight, Dot } from "lucide-react";
-import Link from "next/link";
 
 async function getBlogs() {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
@@ -27,19 +25,28 @@ export default async function BlogPage() {
         </h1>
         <div className="grid md:grid-cols-4">
           {blogs.length > 0 ? (
-            blogs.map((blog: any) => (
-              blog.coverImage ? (
-                <NewsContainer
-                  key={blog._id}
-                  date={blog.date}
-                  title={blog.title}
-                  image={blog.coverImage}
-                  slug={blog.slug}
-                  link={`/blog/${blog.slug}`}
-                  height="full"
-                />
-              ) : null
-            )).filter(Boolean)
+            blogs
+              .map(
+                (blog: {
+                  _id: string;
+                  date: string;
+                  title: string;
+                  coverImage: string;
+                  slug: string;
+                }) =>
+                  blog.coverImage ? (
+                    <NewsContainer
+                      key={blog._id}
+                      date={blog.date}
+                      title={blog.title}
+                      image={blog.coverImage}
+                      slug={blog.slug}
+                      link={`/blog/${blog.slug}`}
+                      height="full"
+                    />
+                  ) : null,
+              )
+              .filter(Boolean)
           ) : (
             <div className="col-span-4 text-center py-12 text-muted-foreground">
               No blogs yet. Check back soon!

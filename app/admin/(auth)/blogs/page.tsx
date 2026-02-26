@@ -1,9 +1,17 @@
 "use client";
 
 import { useState } from "react";
-import { Trash2, Edit, Eye, EyeOff } from "lucide-react";
+import {
+  Trash2,
+  Edit,
+  Eye,
+  EyeOff,
+  BookPlus,
+  LucideGlobeLock,
+  Globe,
+  GlobeX,
+} from "lucide-react";
 import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
 import Link from "next/link";
 
 interface Blog {
@@ -49,23 +57,29 @@ export default function BlogsPage() {
       body: JSON.stringify({ id, published: !currentPublished }),
     });
     setBlogs((prev) =>
-      prev.map((b) => (b._id === id ? { ...b, published: !currentPublished } : b))
+      prev.map((b) =>
+        b._id === id ? { ...b, published: !currentPublished } : b,
+      ),
     );
   };
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-6xl mx-auto">
+    <div className="min-h-screen bg-background p-4">
+      <div className="w-full">
         <div className="flex items-center justify-between mb-8">
-          <h1 className="text-3xl font-bold">Blogs</h1>
+          <h1 className="text-3xl font-display tracking-tighter">Blogs</h1>
           <Link href="/admin/blogs/new">
-            <Button>Create New Blog</Button>
+            <Button className="rounded-none" variant={"outline"}>
+              <BookPlus /> Create New Blog
+            </Button>
           </Link>
         </div>
 
         <div className="grid gap-4">
           {loading ? (
-            <div className="text-center py-12 text-muted-foreground">Loading...</div>
+            <div className="text-center py-12 text-muted-foreground">
+              Loading...
+            </div>
           ) : blogs.length === 0 ? (
             <div className="text-center py-12 text-muted-foreground">
               No blogs yet. Create your first blog!
@@ -74,7 +88,7 @@ export default function BlogsPage() {
             blogs.map((blog) => (
               <div
                 key={blog._id}
-                className="border rounded-lg p-4 bg-card hover:shadow-md transition-shadow flex items-center justify-between"
+                className="border rounded-none p-4 bg-card hover:shadow-md transition-shadow flex items-center justify-between"
               >
                 <div className="flex items-center gap-4">
                   {blog.coverImage && (
@@ -87,11 +101,15 @@ export default function BlogsPage() {
                   <div>
                     <div className="flex items-center gap-2">
                       <h3 className="font-semibold">{blog.title}</h3>
-                      <span className={`px-2 py-0.5 rounded-full text-xs ${blog.published ? "bg-green-500 text-white" : "bg-gray-300 text-gray-700"}`}>
+                      <span
+                        className={`px-2 py-0.5 rounded-full text-xs ${blog.published ? "bg-green-500 text-white" : "bg-gray-300 text-gray-700"}`}
+                      >
                         {blog.published ? "Published" : "Draft"}
                       </span>
                     </div>
-                    <p className="text-sm text-muted-foreground">/{blog.slug}</p>
+                    <p className="text-sm text-muted-foreground">
+                      /{blog.slug}
+                    </p>
                     <p className="text-xs text-muted-foreground">{blog.date}</p>
                   </div>
                 </div>
@@ -99,10 +117,16 @@ export default function BlogsPage() {
                   <Button
                     variant="ghost"
                     size="icon"
-                    onClick={() => handleTogglePublish(blog._id, blog.published)}
+                    onClick={() =>
+                      handleTogglePublish(blog._id, blog.published)
+                    }
                     title={blog.published ? "Unpublish" : "Publish"}
                   >
-                    {blog.published ? <EyeOff className="w-4 h-4" /> : <Eye className="w-4 h-4" />}
+                    {blog.published ? (
+                      <Globe className="w-4 h-4" />
+                    ) : (
+                      <GlobeX className="w-4 h-4" />
+                    )}
                   </Button>
                   <Link href={`/blog/${blog.slug}`} target="_blank">
                     <Button variant="ghost" size="icon" title="View">

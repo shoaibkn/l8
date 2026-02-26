@@ -10,15 +10,22 @@ import { Upload, X, Loader2 } from "lucide-react";
 import dynamic from "next/dynamic";
 
 const BlogEditor = dynamic(
-  () => import("@/components/blog-editor").then((mod) => mod.BlogEditor as React.ComponentType<{ value?: string; onChange?: (html: string) => void }>),
-  { 
+  () =>
+    import("@/components/blog-editor").then(
+      (mod) =>
+        mod.BlogEditor as React.ComponentType<{
+          value?: string;
+          onChange?: (html: string) => void;
+        }>,
+    ),
+  {
     ssr: false,
     loading: () => (
-      <div className="border rounded-lg h-96 flex items-center justify-center bg-gray-50">
+      <div className="border rounded-none h-96 flex items-center justify-center bg-gray-50">
         <Loader2 className="w-8 h-8 animate-spin text-gray-400" />
       </div>
     ),
-  }
+  },
 );
 
 function EditorLoading() {
@@ -38,12 +45,14 @@ export default function BlogEditorPage({
   const router = useRouter();
   const isEditing = id !== "new";
   const fileInputRef = useRef<HTMLInputElement>(null);
-  
+
   const [mounted, setMounted] = useState(false);
   const [title, setTitle] = useState("");
   const [slug, setSlug] = useState("");
   const [coverImage, setCoverImage] = useState<string | null>(null);
-  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(null);
+  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(
+    null,
+  );
   const [date, setDate] = useState(new Date().toISOString().split("T")[0]);
   const [published, setPublished] = useState(false);
   const [author, setAuthor] = useState("");
@@ -93,12 +102,14 @@ export default function BlogEditorPage({
     }
   };
 
-  const handleCoverImageUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handleCoverImageUpload = async (
+    e: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     setUploading(true);
-    
+
     try {
       const formData = new FormData();
       formData.append("file", file);
@@ -140,7 +151,16 @@ export default function BlogEditorPage({
 
     setSaving(true);
 
-    const body: any = {
+    const body: {
+      title: string;
+      slug: string;
+      date: string;
+      published: boolean;
+      author?: string;
+      authorId?: string;
+      coverImage?: string;
+      contentHtml?: string;
+    } = {
       title,
       slug,
       date,
@@ -161,7 +181,7 @@ export default function BlogEditorPage({
 
     try {
       const url = isEditing ? `/api/blogs/update` : "/api/blogs";
-      
+
       const response = await fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -195,24 +215,31 @@ export default function BlogEditorPage({
   }
 
   return (
-    <div className="min-h-screen bg-background p-8">
-      <div className="max-w-4xl mx-auto">
+    <div className="min-h-screen bg-background p-4">
+      <div className="mx-auto">
         <div className="flex items-center justify-between mb-8">
           <h1 className="text-3xl font-bold">
             {isEditing ? "Edit Blog" : "Create New Blog"}
           </h1>
           <div className="flex gap-2">
             <Link href="/admin/blogs">
-              <Button variant="outline">Cancel</Button>
+              <Button variant="ghost" className="rounded-none">
+                Cancel
+              </Button>
             </Link>
             <Button
-              variant="outline"
+              variant="secondary"
               onClick={() => handleSave(published)}
+              className="rounded-none"
               disabled={saving}
             >
               {saving ? "Saving..." : "Save Draft"}
             </Button>
-            <Button onClick={() => handleSave(true)} disabled={saving}>
+            <Button
+              onClick={() => handleSave(true)}
+              disabled={saving}
+              className="rounded-none"
+            >
               {saving ? "Saving..." : "Publish"}
             </Button>
           </div>
@@ -220,60 +247,86 @@ export default function BlogEditorPage({
 
         <div className="space-y-6">
           <div className="grid gap-2">
-            <Label htmlFor="title">Title</Label>
+            <Label
+              htmlFor="title"
+              className="font-mono uppercase text-xs text-muted-foreground"
+            >
+              Title
+            </Label>
             <Input
               id="title"
               value={title}
+              className="rounded-none"
               onChange={(e) => handleTitleChange(e.target.value)}
               placeholder="Enter blog title"
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="slug">Slug</Label>
+            <Label
+              htmlFor="slug"
+              className="font-mono uppercase text-xs text-muted-foreground"
+            >
+              Slug
+            </Label>
             <Input
               id="slug"
               value={slug}
+              className="rounded-none"
               onChange={(e) => setSlug(handleSlugify(e.target.value))}
               placeholder="blog-url-slug"
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="date">Date</Label>
+            <Label
+              htmlFor="date"
+              className="font-mono uppercase text-xs text-muted-foreground"
+            >
+              Date
+            </Label>
             <Input
               id="date"
               type="date"
+              className="rounded-none"
               value={date}
               onChange={(e) => setDate(e.target.value)}
             />
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="author">Author</Label>
+            <Label
+              htmlFor="author"
+              className="font-mono uppercase text-xs text-muted-foreground"
+            >
+              Author
+            </Label>
             <Input
               id="author"
               value={author}
+              className="rounded-none"
               onChange={(e) => setAuthor(e.target.value)}
               placeholder="Author name"
             />
           </div>
 
           <div className="grid gap-2">
-            <Label>Cover Image</Label>
+            <Label className="font-mono uppercase text-xs text-muted-foreground">
+              Cover Image
+            </Label>
             <input
               ref={fileInputRef}
               type="file"
               accept="image/*"
               onChange={handleCoverImageUpload}
-              className="hidden"
+              className="hidden rounde-none"
               id="cover-image-upload"
             />
-            
+
             {!coverImagePreview ? (
               <label
                 htmlFor="cover-image-upload"
-                className="border-2 border-dashed rounded-lg p-8 flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors"
+                className="font-mono uppercase text-xs text-muted-foreground border-2 border-dashed rounded-none p-8 flex flex-col items-center justify-center cursor-pointer hover:border-primary transition-colors"
               >
                 {uploading ? (
                   <Loader2 className="w-8 h-8 animate-spin text-muted-foreground" />
@@ -307,19 +360,23 @@ export default function BlogEditorPage({
           </div>
 
           <div className="grid gap-2">
-            <Label>Content</Label>
+            <Label className="font-mono uppercase text-xs text-muted-foreground">
+              Content
+            </Label>
             {mounted ? (
-              <BlogEditor
-                value={contentHtml}
-                onChange={setContentHtml}
-              />
+              <BlogEditor value={contentHtml} onChange={setContentHtml} />
             ) : (
               <EditorLoading />
             )}
           </div>
 
           <div className="grid gap-2">
-            <Label htmlFor="contentHtml">Content (HTML)</Label>
+            <Label
+              htmlFor="contentHtml"
+              className="font-mono uppercase text-xs text-muted-foreground"
+            >
+              Content (HTML)
+            </Label>
             <p className="text-sm text-muted-foreground">
               Enter HTML content manually or use the editor above.
             </p>
@@ -328,7 +385,7 @@ export default function BlogEditorPage({
               value={contentHtml}
               onChange={(e) => setContentHtml(e.target.value)}
               placeholder="<h1>Your content here...</h1>"
-              className="min-h-[200px] w-full p-3 border rounded-md font-mono text-sm bg-background"
+              className="min-h-[200px] w-full p-3 border rounded-none font-mono text-sm bg-background"
             />
           </div>
         </div>

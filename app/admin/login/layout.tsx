@@ -10,9 +10,5 @@ export default function AdminLoginLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  return (
-    <html lang="en">
-      <body className="antialiased">{children}</body>
-    </html>
-  );
+  return <>{children}</>;
 }
