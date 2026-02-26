@@ -1,8 +1,19 @@
 import { mutation, query } from "./_generated/server";
 import { v } from "convex/values";
-import { Resend } from "resend";
+import { components } from "./_generated/api";
+import { Resend } from "@convex-dev/resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+const resend = new Resend(components.resend as any, {
+  testMode: false,
+});
+
+async function getAdminEmail(ctx: any): Promise<string> {
+  const setting = await ctx.db
+    .query("settings")
+    .withIndex("by_key", (q: any) => q.eq("key", "adminEmail"))
+    .first();
+  return setting?.value || process.env.ADMIN_EMAIL || "admin@l8.com";
+}
 
 export const submitEnquiry = mutation({
   args: {
@@ -24,41 +35,41 @@ export const submitEnquiry = mutation({
     const enquiry = await ctx.db.get(enquiryId);
     if (!enquiry) throw new Error("Failed to create enquiry");
 
-    const adminEmail = process.env.ADMIN_EMAIL || "admin@l8.com";
+    const adminEmail = await getAdminEmail(ctx);
 
     try {
-      await resend.emails.send({
-        from: "L8 <onboarding@resend.dev>",
+      await resend.sendEmail(ctx, {
+        from: "Lumin8 <hello@lumin8.in>",
         to: enquiry.email,
         subject: "Thank you for your enquiry - L8",
         html: `
-          <h1>Hi ${enquiry.name},</h1>
-          <p>Thank you for reaching out to us. We've received your enquiry and will get back to you shortly.</p>
-          <p>Here's a copy of what you submitted:</p>
-          <ul>
-            <li><strong>Name:</strong> ${enquiry.name}</li>
-            <li><strong>Email:</strong> ${enquiry.email}</li>
-            ${enquiry.message ? `<li><strong>Message:</strong> ${enquiry.message}</li>` : ""}
-          </ul>
-          <p>Best regards,<br>The L8 Team</p>
-        `,
+            <h1>Hi ${enquiry.name},</h1>
+            <p>Thank you for reaching out to us. We've received your enquiry and will get back to you shortly.</p>
+            <p>Here's a copy of what you submitted:</p>
+            <ul>
+              <li><strong>Name:</strong> ${enquiry.name}</li>
+              <li><strong>Email:</strong> ${enquiry.email}</li>
+              ${enquiry.message ? `<li><strong>Message:</strong> ${enquiry.message}</li>` : ""}
+            </ul>
+            <p>Best regards,<br>The L8 Team</p>
+          `,
       });
 
-      await resend.emails.send({
-        from: "L8 Website <onboarding@resend.dev>",
+      await resend.sendEmail(ctx, {
+        from: "Lumin8 <hello@lumin8.in>",
         to: adminEmail,
         subject: `New Enquiry from ${enquiry.name} - L8`,
         html: `
-          <h1>New Enquiry Received</h1>
-          <p>You have a new enquiry from your website:</p>
-          <ul>
-            <li><strong>Name:</strong> ${enquiry.name}</li>
-            <li><strong>Email:</strong> ${enquiry.email}</li>
-            ${enquiry.message ? `<li><strong>Message:</strong> ${enquiry.message}</li>` : ""}
-            <li><strong>Submitted:</strong> ${new Date(enquiry.createdAt).toLocaleString()}</li>
-          </ul>
-          <p><a href="${process.env.ADMIN_URL || "http://localhost:3000"}/admin/enquiries">View in Admin CMS</a></p>
-        `,
+            <h1>New Enquiry Received</h1>
+            <p>You have a new enquiry from your website:</p>
+            <ul>
+              <li><strong>Name:</strong> ${enquiry.name}</li>
+              <li><strong>Email:</strong> ${enquiry.email}</li>
+              ${enquiry.message ? `<li><strong>Message:</strong> ${enquiry.message}</li>` : ""}
+              <li><strong>Submitted:</strong> ${new Date(enquiry.createdAt).toLocaleString()}</li>
+            </ul>
+            <p><a href="${process.env.ADMIN_URL || "http://localhost:3000"}/admin/enquiries">View in Admin CMS</a></p>
+          `,
       });
     } catch (error) {
       console.error("Failed to send emails:", error);
@@ -69,8 +80,40 @@ export const submitEnquiry = mutation({
 });
 
 export const listEnquiries = query({
-  handler: async (ctx) => {
-    return await ctx.db.query("enquiries").order("desc").collect();
+  args: {
+    search: v.optional(v.string()),
+    cursor: v.optional(v.string()),
+    limit: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const limit = args.limit || 20;
+    const baseQuery = ctx.db.query("enquiries").order("desc");
+
+    let results;
+    if (args.cursor) {
+      results = await baseQuery.paginate({ numItems: limit, cursor: args.cursor });
+    } else {
+      results = await baseQuery.paginate({ numItems: limit, cursor: null as any });
+    }
+
+    let enquiries = results.page;
+
+    if (args.search && args.search.trim()) {
+      const searchLower = args.search.toLowerCase();
+      enquiries = enquiries.filter(
+        (e) =>
+          e.name.toLowerCase().includes(searchLower) ||
+          e.email.toLowerCase().includes(searchLower) ||
+          (e.message && e.message.toLowerCase().includes(searchLower)) ||
+          (e.notes && e.notes.toLowerCase().includes(searchLower))
+      );
+    }
+
+    return {
+      enquiries,
+      continueCursor: results.continueCursor,
+      hasMore: results.continueCursor !== null,
+    };
   },
 });
 
@@ -84,13 +127,52 @@ export const getEnquiry = query({
 export const updateEnquiryStatus = mutation({
   args: {
     id: v.id("enquiries"),
-    status: v.union(v.literal("new"), v.literal("contacted"), v.literal("closed")),
+    status: v.union(
+      v.literal("new"),
+      v.literal("contacted"),
+      v.literal("qualified"),
+      v.literal("proposal"),
+      v.literal("won"),
+      v.literal("lost"),
+    ),
   },
   handler: async (ctx, args) => {
     await ctx.db.patch(args.id, {
       status: args.status,
       updatedAt: Date.now(),
     });
+    return { success: true };
+  },
+});
+
+export const updateEnquiryNotes = mutation({
+  args: {
+    id: v.id("enquiries"),
+    notes: v.string(),
+  },
+  handler: async (ctx, args) => {
+    await ctx.db.patch(args.id, {
+      notes: args.notes,
+      updatedAt: Date.now(),
+    });
+    return { success: true };
+  },
+});
+
+export const updateLeadDetails = mutation({
+  args: {
+    id: v.id("enquiries"),
+    source: v.optional(v.string()),
+    value: v.optional(v.number()),
+    followUpDate: v.optional(v.number()),
+  },
+  handler: async (ctx, args) => {
+    const updates: Record<string, any> = { updatedAt: Date.now() };
+    if (args.source !== undefined) updates.source = args.source;
+    if (args.value !== undefined) updates.value = args.value;
+    if (args.followUpDate !== undefined) updates.followUpDate = args.followUpDate;
+    
+    await ctx.db.patch(args.id, updates);
     return { success: true };
   },
 });

@@ -86,6 +86,17 @@ const data = {
         },
       ],
     },
+    {
+      title: "Settings",
+      url: "/admin/settings",
+      icon: Settings2,
+      items: [
+        {
+          title: "General",
+          url: "/admin/settings",
+        },
+      ],
+    },
     // {
     //   title: "Settings",
     //   url: "#",

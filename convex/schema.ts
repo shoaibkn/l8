@@ -6,7 +6,11 @@ export default defineSchema({
     name: v.string(),
     email: v.string(),
     message: v.optional(v.string()),
-    status: v.optional(v.union(v.literal("new"), v.literal("contacted"), v.literal("closed"))),
+    notes: v.optional(v.string()),
+    status: v.optional(v.union(v.literal("new"), v.literal("contacted"), v.literal("qualified"), v.literal("proposal"), v.literal("won"), v.literal("lost"))),
+    source: v.optional(v.string()),
+    value: v.optional(v.number()),
+    followUpDate: v.optional(v.number()),
     createdAt: v.number(),
     updatedAt: v.number(),
   })
@@ -35,4 +39,9 @@ export default defineSchema({
     .index("by_slug", ["slug"])
     .index("by_published", ["published"])
     .index("by_createdAt", ["createdAt"]),
+
+  settings: defineTable({
+    key: v.string(),
+    value: v.string(),
+  }).index("by_key", ["key"]),
 });

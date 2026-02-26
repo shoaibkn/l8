@@ -13,6 +13,7 @@
     "@aws-sdk/lib-storage": "^3.997.0",
     "@base-ui/react": "^1.2.0",
     "@clerk/clerk-react": "^5.61.1",
+    "@convex-dev/resend": "^0.2.3",
     "@lexical/code": "^0.40.0",
     "@lexical/file": "^0.40.0",
     "@lexical/hashtag": "^0.40.0",

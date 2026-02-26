@@ -3,6 +3,30 @@ import { ConvexHttpClient } from "convex/browser";
 
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
 
+export async function GET(request: NextRequest) {
+  if (!convexUrl) {
+    return NextResponse.json({ error: "Convex not configured" }, { status: 500 });
+  }
+
+  const convex = new ConvexHttpClient(convexUrl);
+  const searchParams = request.nextUrl.searchParams;
+  const search = searchParams.get("search") || undefined;
+  const cursor = searchParams.get("cursor") || undefined;
+  const limit = searchParams.get("limit") ? parseInt(searchParams.get("limit")!) : undefined;
+
+  try {
+    const result = await (convex.query as any)("enquiries:listEnquiries", {
+      search,
+      cursor,
+      limit,
+    });
+    return NextResponse.json(result);
+  } catch (error) {
+    console.error("Error fetching enquiries:", error);
+    return NextResponse.json({ error: "Failed to fetch enquiries" }, { status: 500 });
+  }
+}
+
 export async function POST(request: NextRequest) {
   if (!convexUrl) {
     return NextResponse.json(
@@ -27,12 +51,6 @@ export async function POST(request: NextRequest) {
       email: body.email,
       message: body.message,
     });
-
-    if (result.success) {
-      await (convex.action as any)("enquiries:sendEnquiryEmails", {
-        enquiryId: result.enquiryId,
-      });
-    }
 
     return NextResponse.json(result);
   } catch (error) {

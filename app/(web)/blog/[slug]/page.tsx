@@ -1,5 +1,5 @@
-import Image from "next/image";
 import { notFound } from "next/navigation";
+import BlogPostContent from "@/components/blog-post-content";
 
 async function getBlogBySlug(slug: string) {
   const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || "http://localhost:3000";
@@ -56,38 +56,14 @@ export default async function BlogPostPage({
   const resolvedImages = await resolveBlogImages(blog.coverImage, blog.images);
 
   return (
-    <main className="min-h-screen px-6 md:px-12 bg-primary/10">
-      <article className="grid grid-cols-4 pt-64">
-        <div className="gap-4 text-muted-foreground mb-4 h-screen border">
-          {resolvedImages.coverImage && (
-            // <img
-            //   src={resolvedImages.coverImage}
-            //   alt={blog.title}
-            //   className="w-full h-64 md:h-96 object-cover rounded-lg mb-8"
-            // />
-            <Image
-              src={resolvedImages.coverImage}
-              alt={blog.title}
-              width={800}
-              height={450}
-              className="w-full h-auto transition-transform duration-500 ease-out group-hover:scale-105"
-            />
-          )}
-          <div className="text-xs font-mono uppercase tracking-tighter px-4 py-6 flex flex-col">
-            <span>{blog.date}</span>
-            {blog.author && (
-              <>
-                <span>By {blog.author}</span>
-              </>
-            )}
-          </div>
-        </div>
-        <div></div>
-        <div
-          className="prose prose-xs max-w-none col-span-2 prose-h1:font-display prose-h1:uppercase prose-h1:tracking-tighter prose-h1:text-[clamp(3rem,4vw,10rem)] prose-blockquote:border-l-primary prose-blockquote:border-1 prose-blockquote:pl-6 prose-blockquote:text-muted-foreground prose-blockquote:not-italic"
-          dangerouslySetInnerHTML={{ __html: blog.contentHtml || "" }}
-        />
-      </article>
+    <main className="min-h-screen px-6 md:px-12 bg-primary/10 pt-64">
+      <BlogPostContent
+        coverImage={resolvedImages.coverImage}
+        title={blog.title}
+        author={blog.author}
+        date={blog.date}
+        contentHtml={blog.contentHtml}
+      />
     </main>
   );
 }
