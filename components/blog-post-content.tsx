@@ -65,10 +65,10 @@ export default function BlogPostContent({
   }, []);
 
   return (
-    <article className="grid grid-cols-4">
+    <article className="grid grid-cols-1 md:grid-cols-4 gap-6">
       <div
         ref={imageRef}
-        className="gap-4 text-muted-foreground mb-4 sticky top-16 self-start border"
+        className="md:col-span-1 text-muted-foreground border md:sticky md:top-16 md:self-start order-1 md:order-none"
       >
         {coverImage && (
           <Image
@@ -84,8 +84,7 @@ export default function BlogPostContent({
         </div>
       </div>
 
-      <div></div>
-      <div className="col-span-2 flex flex-col gap-1">
+      <div className="md:col-span-2 md:col-start-3 flex flex-col gap-1 order-2 md:order-none">
         <div
           ref={dateRef}
           className="flex flex-row gap-4 relative right-2 text-xs font-mono tracking-tighter items-center align-middle leading-4"
@@ -97,7 +96,7 @@ export default function BlogPostContent({
         </div>
         <div
           ref={contentRef}
-          className="prose prose-xs prose-p:tracking-tight prose-h2:tracking-tight prose-h2:font-display prose-h3:font-display prose-h3:font-medium prose-h2:font-medium prose-h3:tracking-tight max-w-none prose-h1:font-display prose-h1:uppercase prose-h1:tracking-tighter prose-h1:text-[clamp(3rem,4.5vw,10rem)] prose-h1:leading-[clamp(3rem,4.5vw,10rem)] prose-blockquote:border-l-primary prose-h1:text-primary prose-blockquote:border prose-blockquote:pl-6 prose-blockquote:text-muted-foreground prose-blockquote:not-italic"
+          className="prose prose-xs prose-p:tracking-tight prose-h2:tracking-tight prose-h2:font-display prose-h3:font-display prose-hr:font-m prose-h3:tracking-tight max-w-none prose-h1:font-display prose-h1:uppercase prose-h1:tracking-tighter prose-h1:text-[clamp(3rem,4.5vw,10rem)] prose-h1:leading-[clamp(3rem,4.5vw,10rem)] prose-blockquote:border-l-primary prose-h1:text-primary prose-blockquote:border prose-blockquote:pl-6 prose-blockquote:text-muted-foreground prose-blockquote:not-italic"
           dangerouslySetInnerHTML={{ __html: contentHtml || "" }}
         />
       </div>
