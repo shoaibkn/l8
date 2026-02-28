@@ -39,10 +39,11 @@ export default function Nav() {
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
+    const href = e.currentTarget.href;
 
     const tl = gsap.timeline({
       onComplete: () => {
-        window.location.href = e.currentTarget.href;
+        window.location.href = href;
       },
     });
 

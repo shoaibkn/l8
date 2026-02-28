@@ -3,6 +3,7 @@ import { Geist, Figtree, IBM_Plex_Mono, Sora } from "next/font/google";
 import "./globals.css";
 import GridColumns from "@/components/providers/grid-provider";
 import GSAPProvider from "@/components/providers/gsap-provider";
+import LenisProvider from "@/components/providers/lenis-provider";
 import GetInTouch from "@/components/get-in-touch";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
@@ -41,8 +42,9 @@ export default function RootLayout({
       >
         {/*<div className="bg"></div>*/}
         <GSAPProvider>
-          <TooltipProvider>{children}</TooltipProvider>
-          {/*<Footer />*/}
+          <LenisProvider>
+            <TooltipProvider>{children}</TooltipProvider>
+          </LenisProvider>
         </GSAPProvider>
       </body>
     </html>
