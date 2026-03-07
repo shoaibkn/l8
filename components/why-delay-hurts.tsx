@@ -1,5 +1,6 @@
 import { Dot } from "lucide-react";
 import DelayProgressContainer from "./delay-progress-container";
+import { whyDelayHurtsContent } from "@/constants";
 
 export default function WhyDelayHurts() {
   return (
@@ -8,15 +9,15 @@ export default function WhyDelayHurts() {
         <div className="flex flex-row gap-4 relative right-2 text-xs font-mono tracking-tighter items-center align-middle leading-4">
           <span className="flex flex-row items-center">
             <Dot className="" size={36} />
-            <span className="relative right-2">05</span>
+            <span className="relative right-2">{whyDelayHurtsContent.sectionNumber}</span>
           </span>
           <h4 className="uppercase text-muted-foreground relative right-2">
-            why delay hurts
+            {whyDelayHurtsContent.sectionLabel}
           </h4>
         </div>
         <span className="font-display md:w-1/2 w-full wrap-break-word leading-[clamp(2rem,4vw,6rem)] uppercase text-primary/50 text-[clamp(2rem,4vw,8rem)] font-semibold tracking-tighter">
-          The longer you wait, the more expensive it becomes{" "}
-          <span className="text-primary">to catch up.</span>
+          {whyDelayHurtsContent.titlePrefix}{" "}
+          <span className="text-primary">{whyDelayHurtsContent.titleHighlight}</span>
         </span>
       </div>
       <DelayProgressContainer />

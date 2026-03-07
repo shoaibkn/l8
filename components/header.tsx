@@ -8,12 +8,12 @@ import { Button } from "./ui/button";
 import { TextRoll } from "./motion-primitives/text-roll";
 import Nav from "./nav";
 import Image from "next/image";
+import { headerContent } from "@/constants";
 
 export default function Header() {
   const [isHovered, setIsHovered] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navContainerRef = useRef<HTMLDivElement>(null);
-  const menuKey = useRef(0);
 
   useEffect(() => {
     if (isMenuOpen) {
@@ -25,61 +25,22 @@ export default function Header() {
     }
   }, [isMenuOpen]);
 
-  useEffect(() => {
-    if (isMenuOpen && navContainerRef.current) {
-      const tl = gsap.timeline();
-
-      tl.fromTo(
-        navContainerRef.current,
-        {
-          clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
-          scale: 0.95,
-          opacity: 0,
-        },
-        {
-          clipPath: "polygon(0 0, 100% 0, 100% 100%, 0 100%)",
-          scale: 1,
-          opacity: 1,
-          duration: 0.6,
-          ease: "expo.out",
-        },
-      );
-
-      tl.fromTo(
-        navContainerRef.current.querySelector("nav"),
-        { y: "-100%" },
-        { y: 0, duration: 0.6, ease: "power3.out" },
-        "-=0.3",
-      );
-
-      tl.from(
-        navContainerRef.current.querySelectorAll("a"),
-        {
-          y: 30,
-          opacity: 0,
-          duration: 0.4,
-          stagger: 0.08,
-          ease: "power2.out",
-        },
-        "-=0.3",
-      );
-    }
-  }, [menuKey.current]);
-
   const toggleMenu = () => {
     if (isMenuOpen) {
-      if (navContainerRef.current) {
-        gsap.to(navContainerRef.current, {
-          clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)",
-          scale: 0.95,
-          opacity: 0,
-          duration: 0.4,
-          ease: "power3.in",
-          onComplete: () => setIsMenuOpen(false),
-        });
+      const navElement = navContainerRef.current?.querySelector("nav");
+
+      if (!navElement) {
+        setIsMenuOpen(false);
+        return;
       }
+
+      gsap.to(navElement, {
+        yPercent: -100,
+        duration: 0.45,
+        ease: "power3.inOut",
+        onComplete: () => setIsMenuOpen(false),
+      });
     } else {
-      menuKey.current += 1;
       setIsMenuOpen(true);
     }
   };
@@ -91,7 +52,7 @@ export default function Header() {
           {/*<h1 className="tracking-tighter text-xl font-display uppercase font-semibold">
             Lumin<span className="font-black">8</span>
           </h1>*/}
-          <Image src="/logo.svg" alt="Logo" width={96} height={24} />
+          <Image src="/logo.svg" alt={headerContent.logoAlt} width={96} height={24} />
           <Button
             variant="link"
             className="flex flex-row gap-1 items-center align-middle cursor-pointer p-0 md:p-2 md:relative md:left-16 mix-blend-difference text-white"
@@ -110,17 +71,13 @@ export default function Header() {
               duration={0.1}
               className="text-sm font-bold font-mono tracking-tighter"
             >
-              MENU
+              {headerContent.menuLabel}
             </TextRoll>
           </Button>
         </div>
       </nav>
       {isMenuOpen && (
-        <div
-          ref={navContainerRef}
-          className="fixed top-0 left-0 w-full z-90"
-          style={{ clipPath: "polygon(0 0, 100% 0, 100% 0, 0 0)", opacity: 0 }}
-        >
+        <div ref={navContainerRef} className="fixed top-0 left-0 w-full z-90">
           <Nav />
         </div>
       )}

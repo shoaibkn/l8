@@ -1,7 +1,7 @@
 "use client";
 
-import { useState, useRef } from "react";
-import { links } from "@/constants";
+import { useEffect, useState, useRef } from "react";
+import { links, navContent } from "@/constants";
 import Link from "next/link";
 import { TextRoll } from "./motion-primitives/text-roll";
 import gsap from "gsap";
@@ -33,49 +33,37 @@ function NavLink({
 
 export default function Nav() {
   const navRef = useRef<HTMLElement>(null);
-  const linksRef = useRef<HTMLDivElement>(null);
-  const emailRef = useRef<HTMLDivElement>(null);
-  const phoneRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (!navRef.current) return;
+
+    gsap.fromTo(
+      navRef.current,
+      { yPercent: -100 },
+      { yPercent: 0, duration: 0.5, ease: "power3.out" },
+    );
+  }, []);
 
   const handleLinkClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     const href = e.currentTarget.href;
 
-    const tl = gsap.timeline({
+    gsap.to(navRef.current, {
+      yPercent: -100,
+      duration: 0.45,
+      ease: "power3.inOut",
       onComplete: () => {
         window.location.href = href;
       },
     });
-
-    tl.to(linksRef.current, {
-      y: -20,
-      opacity: 0,
-      duration: 0.3,
-      stagger: 0.05,
-    })
-      .to(emailRef.current, {
-        y: -20,
-        opacity: 0,
-        duration: 0.3,
-      })
-      .to(phoneRef.current, {
-        y: -20,
-        opacity: 0,
-        duration: 0.3,
-      })
-      .to(navRef.current, {
-        y: -20,
-        opacity: 0,
-        duration: 0.4,
-      });
   };
 
   return (
     <nav
       ref={navRef}
-      className="bg-primary w-full min-h-screen md:min-h-100 px-6 md:px-12 flex flex-col justify-end pb-6"
+      className="bg-primary w-full h-[calc(80lvh)] md:min-h-100 px-6 md:px-12 flex flex-col justify-end pb-6"
     >
-      <div ref={linksRef} className="flex flex-col gap-4 pt-24">
+      <div className="flex flex-col gap-4 pt-24">
         {links.map((link, index) => (
           <NavLink
             key={index}
@@ -85,23 +73,20 @@ export default function Nav() {
           />
         ))}
       </div>
-      <div
-        ref={emailRef}
-        className="mt-8 text-primary-foreground hover:bg-primary-foreground hover:text-primary w-full flex flex-row justify-center md:justify-end"
-      >
+      <div className="mt-8 text-primary-foreground hover:bg-primary-foreground hover:text-primary w-full flex flex-row justify-center md:justify-end">
         <Link
-          href="mailto:hello@lumin8.in"
+          href={`mailto:${navContent.email}`}
           className="text-[clamp(2.5rem,4vw,8rem)] tracking-tighter font-bold font-display uppercase "
         >
-          hello@lumin8.in
+          {navContent.email}
         </Link>
       </div>
-      <div ref={phoneRef} className="text-right ">
+      <div className="text-right ">
         <Link
-          href="tel:+918279497847"
+          href={`tel:${navContent.phone}`}
           className="uppercase font-display font-semibold tracking-tighter text-[clamp(1rem,1vw,2rem)] text-primary-foreground/50 hover:bg-primary-foreground/50 hover:text-primary"
         >
-          +918279497847
+          {navContent.phone}
         </Link>
       </div>
     </nav>

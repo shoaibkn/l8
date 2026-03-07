@@ -2,7 +2,7 @@ import { Dot, Plus } from "lucide-react";
 import { LimeplayMediaPlayer } from "./basic-player/components/media-player";
 import { Separator } from "./ui/separator";
 import TextReveal from "./ui/text-reveal";
-import GridColumns from "./providers/grid-provider";
+import { howWeWorkContent } from "@/constants";
 
 export default function HowWeWork() {
   return (
@@ -18,14 +18,14 @@ export default function HowWeWork() {
         {/*Top*/}
 
         <div className="flex flex-row justify-between text-xs items-center">
-          <h4 className="font-display">HOW WE WORK</h4>
+          <h4 className="font-display">{howWeWorkContent.heading}</h4>
           <span className="flex flex-row items-center gap-1">
-            <Dot className="w-fit h-12 relative left-4" /> 2:30
+            <Dot className="w-fit h-12 relative left-4" /> {howWeWorkContent.duration}
           </span>
         </div>
         {/*Heading*/}
         <h2 className="text-[clamp(0.5rem,4vw,1.2rem)] mt-12 mb-6">
-          HOW WE HELP YOU USE AI WITHOUT HYPE
+          {howWeWorkContent.title}
         </h2>
 
         {/*Video*/}
@@ -48,8 +48,7 @@ export default function HowWeWork() {
       </div>
       <div className="h-fit border-b border-muted-foreground border-0.5 py-6">
         <TextReveal className="text-[clamp(1rem,1.6vw,1.6rem)] md:text-[clamp(0.4rem,1vw,1.6rem)] uppercase text-muted-foreground">
-          We&apos;re a hands-on team of AI consultants focused on helping small
-          and mid-size businesses use automation where it matters most
+          {howWeWorkContent.description}
         </TextReveal>
         <div className="flex flex-row justify-between">
           <Plus size={12} className="relative top-7.5 right-1.5" />

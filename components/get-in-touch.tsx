@@ -9,17 +9,20 @@ import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 import { TextRoll } from "./motion-primitives/text-roll";
 import Image from "next/image";
+import { getInTouchContent } from "@/constants";
 
 function TextRollButton({
   children,
   className,
   variant,
+  style,
   onClick,
   disabled,
 }: {
   children: string;
   className?: string;
-  variant?: string;
+  variant?: "link";
+  style?: React.CSSProperties;
   onClick?: () => void;
   disabled?: boolean;
 }) {
@@ -28,10 +31,11 @@ function TextRollButton({
   return (
     <Button
       className={className}
-      variant={variant as any}
+      variant={variant}
       onMouseEnter={() => setHoverKey((k) => k + 1)}
       onClick={onClick}
       disabled={disabled}
+      style={style}
     >
       <TextRoll key={hoverKey} duration={0.05}>
         {children}
@@ -51,7 +55,7 @@ export default function GetInTouch() {
 
   const handleSubmit = async () => {
     if (!name || !email) {
-      setError("Please fill in your name and email");
+      setError(getInTouchContent.requiredError);
       return;
     }
 
@@ -71,10 +75,10 @@ export default function GetInTouch() {
         setEmail("");
         setMessage("");
       } else {
-        setError("Failed to submit. Please try again.");
+        setError(getInTouchContent.submitError);
       }
-    } catch (err) {
-      setError("Failed to submit. Please try again.");
+    } catch {
+      setError(getInTouchContent.submitError);
     } finally {
       setSubmitting(false);
     }
@@ -97,18 +101,20 @@ export default function GetInTouch() {
           <div className="flex flex-row gap-4 relative right-2 text-xs font-mono tracking-tighter items-center h-fit align-middle leading-4">
             <span className="flex flex-row items-center">
               <Dot className="" size={36} />
-              <span className="relative right-2">10</span>
+              <span className="relative right-2">
+                {getInTouchContent.sectionNumber}
+              </span>
             </span>
             <h4 className="uppercase text-muted-foreground relative right-2">
-              Thank You!
+              {getInTouchContent.successLabel}
             </h4>
           </div>
           <div className="col-span-3">
             <h1 className="font-display w-full wrap-break-word leading-[clamp(2rem,6vw,6rem)] uppercase text-primary text-[clamp(2rem,6vw,8rem)] font-semibold tracking-tighter">
-              MESSAGE SENT
+              {getInTouchContent.successTitle}
             </h1>
             <p className="text-muted-foreground md:w-1/3">
-              We&apos;ve received your enquiry and will get back to you shortly.
+              {getInTouchContent.successMessage}
             </p>
           </div>
           <div className="col-span-4 grid md:grid-cols-4 gap-12 md:gap-0 h-fit relative top-24">
@@ -118,17 +124,17 @@ export default function GetInTouch() {
                 href="tel:+918279497847"
                 className="hover:bg-primary hover:text-primary-foreground w-fit"
               >
-                (+91) 827 949 7847
+                {getInTouchContent.phoneLabel}
               </Link>
               <Link
                 href="mailto:hello@lumin8.in"
                 className="hover:bg-primary hover:text-primary-foreground w-fit font-display uppercase text-xl font-bold tracking-tighter"
               >
-                hello@lumin8.in
+                {getInTouchContent.emailLabelDisplay}
               </Link>
             </div>
             <div className="hidden md:block"></div>
-            <div className="text-right">Back to top</div>
+            <div className="text-right">{getInTouchContent.backToTopLabel}</div>
           </div>
         </div>
       </section>
@@ -148,20 +154,21 @@ export default function GetInTouch() {
         <div className="flex flex-row gap-4 relative right-2 text-xs font-mono tracking-tighter items-center h-fit align-middle leading-4">
           <span className="flex flex-row items-center">
             <Dot className="" size={36} />
-            <span className="relative right-2">10</span>
+            <span className="relative right-2">
+              {getInTouchContent.sectionNumber}
+            </span>
           </span>
           <h4 className="uppercase text-muted-foreground relative right-2">
-            Ready to Start?
+            {getInTouchContent.readyLabel}
           </h4>
         </div>
         <div className="col-span-3 flex md:flex-row flex-col justify-between">
           <div>
             <h1 className="font-display w-full wrap-break-word leading-[clamp(2rem,6vw,6rem)] uppercase text-primary text-[clamp(2rem,6vw,8rem)] font-semibold tracking-tighter">
-              GET IN TOUCH
+              {getInTouchContent.title}
             </h1>
             <p className="text-muted-foreground md:w-1/3">
-              Whether you have questions or just want to explore options,
-              we&apos;re here.
+              {getInTouchContent.description}
             </p>
           </div>
           <div className="text-right flex flex-col gap-2 font-display text-sm font-medium">
@@ -175,12 +182,12 @@ export default function GetInTouch() {
         <div className="hidden md:block"></div>
         <div className="w-full border-b border-primary/40 h-fit focus-within:border-primary">
           <Label className="px-4 text-muted-foreground py-2 text-xs font-mono tracking-tighter uppercase">
-            Name
+            {getInTouchContent.nameLabel}
           </Label>
           <div className="flex flex-row justify-between">
             <Input
               type="text"
-              placeholder="your name"
+              placeholder={getInTouchContent.namePlaceholder}
               value={name}
               onChange={(e) => setName(e.target.value)}
               className="px-4 py-2 w-full h-12 rounded-none border-0 bg-transparent placeholder:uppercase placeholder:tracking-tighter focus-visible:ring-0"
@@ -193,12 +200,12 @@ export default function GetInTouch() {
         </div>
         <div className="w-full border-b border-primary/40 h-fit pt-18 focus-within:border-primary">
           <Label className="px-4 text-muted-foreground py-2 text-xs font-mono tracking-tighter uppercase">
-            Email
+            {getInTouchContent.emailLabel}
           </Label>
           <div className="flex flex-row justify-between">
             <Input
               type="email"
-              placeholder="email@address.com"
+              placeholder={getInTouchContent.emailPlaceholder}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="px-4 py-2 w-full h-12 rounded-none border-0 bg-transparent placeholder:uppercase placeholder:tracking-tighter focus-visible:ring-0"
@@ -235,8 +242,17 @@ export default function GetInTouch() {
           variant={"link"}
           onClick={handleSubmit}
           disabled={submitting}
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, #ec4899, #8b5cf6, #3b82f6, #22c55e, #eab308, #f97316, #ef4444)",
+            backgroundSize: "100% 2px",
+            backgroundPosition: "bottom",
+            backgroundRepeat: "no-repeat",
+          }}
         >
-          {submitting ? "Sending..." : "Let's talk"}
+          {submitting
+            ? getInTouchContent.submittingLabel
+            : getInTouchContent.submitLabel}
         </TextRollButton>
         <div className="col-span-4 grid md:grid-cols-4 gap-12 md:gap-0 h-fit relative top-24 pb-12">
           <Image src="/logo-black.svg" alt="Logo" width={180} height={64} />
@@ -245,17 +261,17 @@ export default function GetInTouch() {
               href="tel:+918279497847"
               className="hover:bg-primary hover:text-primary-foreground w-fit"
             >
-              (+91) 827 949 7847
+              {getInTouchContent.phoneLabel}
             </Link>
             <Link
               href="mailto:hello@lumin8.in"
               className="hover:bg-primary hover:text-primary-foreground w-fit font-display uppercase text-xl font-bold tracking-tighter"
             >
-              hello@lumin8.in
+              {getInTouchContent.emailLabelDisplay}
             </Link>
           </div>
           <div className="hidden md:block"></div>
-          <div className="text-right">Back to top</div>
+          <div className="text-right">{getInTouchContent.backToTopLabel}</div>
         </div>
       </div>
     </section>

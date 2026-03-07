@@ -1,10 +1,11 @@
 "use client";
 import { useState } from "react";
-import { ChevronRight, Dot, Loader2 } from "lucide-react";
+import { ChevronRight, Dot } from "lucide-react";
 import { Button } from "./ui/button";
 import { TextRoll } from "./motion-primitives/text-roll";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
+import { contactUsContent } from "@/constants";
 
 function TextRollButton({
   children,
@@ -12,13 +13,15 @@ function TextRollButton({
   variant,
   disabled,
   onClick,
+  style,
   type = "button",
 }: {
   children: string;
   className?: string;
-  variant?: string;
+  variant?: "link";
   disabled?: boolean;
   onClick?: () => void;
+  style?: React.CSSProperties;
   type?: "button" | "submit" | "reset";
 }) {
   const [hoverKey, setHoverKey] = useState(0);
@@ -27,10 +30,11 @@ function TextRollButton({
     <Button
       type={type}
       className={className}
-      variant={variant as any}
+      variant={variant}
       onMouseEnter={() => setHoverKey((k) => k + 1)}
       disabled={disabled}
       onClick={onClick}
+      style={style}
     >
       <TextRoll key={hoverKey} duration={0.1}>
         {children}
@@ -67,10 +71,10 @@ export default function ContactUs() {
         setEmail("");
         setMessage("");
       } else {
-        setError("Failed to submit enquiry. Please try again.");
+        setError(contactUsContent.submitError);
       }
     } catch {
-      setError("Something went wrong. Please try again.");
+      setError(contactUsContent.unexpectedError);
     } finally {
       setIsSubmitting(false);
     }
@@ -82,19 +86,21 @@ export default function ContactUs() {
         <div className="flex flex-row gap-4 relative right-2 text-xs font-mono tracking-tighter items-center h-fit align-middle leading-4  ">
           <span className="flex flex-row items-center">
             <Dot className="" size={36} />
-            <span className="relative right-2">09</span>
+            <span className="relative right-2">
+              {contactUsContent.sectionNumber}
+            </span>
           </span>
           <h4 className="uppercase text-muted-foreground relative right-2">
-            Contact us directly
+            {contactUsContent.sectionLabel}
           </h4>
         </div>
         <div className="flex flex-col gap-12">
           <h1 className="font-display w-full wrap-break-word leading-[clamp(2rem,3vw,6rem)] uppercase text-primary text-[clamp(2rem,3vw,8rem)] font-semibold tracking-tighter">
-            Thank you!
+            {contactUsContent.successTitle}
           </h1>
-          <p className="text-lg">We&apos;ve received your enquiry and will be in touch soon.</p>
+          <p className="text-lg">{contactUsContent.successMessage}</p>
           <Button variant="link" onClick={() => setSubmitted(false)}>
-            Send another enquiry
+            {contactUsContent.sendAnotherLabel}
           </Button>
         </div>
         <div></div>
@@ -108,28 +114,37 @@ export default function ContactUs() {
       <div className="flex flex-row gap-4 relative right-2 text-xs font-mono tracking-tighter items-center h-fit align-middle leading-4  ">
         <span className="flex flex-row items-center">
           <Dot className="" size={36} />
-          <span className="relative right-2">09</span>
+          <span className="relative right-2">
+            {contactUsContent.sectionNumber}
+          </span>
         </span>
         <h4 className="uppercase text-muted-foreground relative right-2">
-          Contact us directly
+          {contactUsContent.sectionLabel}
         </h4>
       </div>
       <div className="flex flex-col gap-12">
         <h1 className="font-display w-full wrap-break-word leading-[clamp(2rem,3vw,6rem)] uppercase text-primary text-[clamp(2rem,3vw,8rem)] font-semibold tracking-tighter">
-          Still unsure?
+          {contactUsContent.title}
         </h1>
         {!isOpen ? (
           <TextRollButton
             className="uppercase bg-primary/5 rounded-none w-full h-18 flex flex-row justify-between px-6 font-display border-0.5 border-b  isolate z-50 relative border-black"
             variant={"link"}
             onClick={() => setIsOpen(true)}
+            style={{
+              backgroundImage:
+                "linear-gradient(to right, #ec4899, #8b5cf6, #3b82f6, #22c55e, #eab308, #f97316, #ef4444)",
+              backgroundSize: "100% 2px",
+              backgroundPosition: "bottom",
+              backgroundRepeat: "no-repeat",
+            }}
           >
-            Ask a question
+            {contactUsContent.ctaAskQuestion}
           </TextRollButton>
         ) : (
           <form onSubmit={handleSubmit} className="flex flex-col gap-4">
             <Input
-              placeholder="Your name"
+              placeholder={contactUsContent.namePlaceholder}
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
@@ -137,17 +152,17 @@ export default function ContactUs() {
             />
             <Input
               type="email"
-              placeholder="Your email"
+              placeholder={contactUsContent.emailPlaceholder}
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
               className="bg-background"
             />
             <Textarea
-              placeholder="Your message (optional)"
+              placeholder={contactUsContent.messagePlaceholder}
               value={message}
               onChange={(e) => setMessage(e.target.value)}
-              className="bg-background min-h-[100px]"
+              className="bg-background min-h-25"
             />
             {error && <p className="text-red-500 text-sm">{error}</p>}
             <div className="flex gap-2">
@@ -155,25 +170,32 @@ export default function ContactUs() {
                 type="submit"
                 className="uppercase bg-primary/5 rounded-none w-full h-18 flex flex-row justify-between px-6 font-display border-0.5 border-b  isolate z-50 relative border-black"
                 variant={"link"}
+                style={{
+                  backgroundImage:
+                    "linear-gradient(to right, #ec4899, #8b5cf6, #3b82f6, #22c55e, #eab308, #f97316, #ef4444)",
+                  backgroundSize: "100% 2px",
+                  backgroundPosition: "bottom",
+                  backgroundRepeat: "no-repeat",
+                }}
                 disabled={isSubmitting}
               >
-                {isSubmitting ? "Sending..." : "Send"}
+                {isSubmitting
+                  ? contactUsContent.submittingLabel
+                  : contactUsContent.submitLabel}
               </TextRollButton>
               <Button
                 type="button"
                 variant="ghost"
                 onClick={() => setIsOpen(false)}
               >
-                Cancel
+                {contactUsContent.cancelLabel}
               </Button>
             </div>
           </form>
         )}
       </div>
       <div></div>
-      <div>
-        My role is to make sure every client feels supported from day one.
-      </div>
+      <div>{contactUsContent.supportNote}</div>
     </section>
   );
 }

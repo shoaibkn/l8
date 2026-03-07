@@ -3,7 +3,7 @@ import WhyUsBanner1 from "./why-us-banner-1";
 import WhyUsBanner2 from "./why-us-banner-2";
 import WhyUsBanner3 from "./why-us-banner-3";
 import WhyUsBanner4 from "./why-us-banner-4";
-import { whyUs } from "@/constants";
+import { whyUs, whyUsBannerContent } from "@/constants";
 
 export default function WhyUsBanner() {
   return (
@@ -16,12 +16,12 @@ export default function WhyUsBanner() {
       <div className="flex pt-24 w-full flex-row gap-4 relative right-4 text-xs font-mono tracking-tighter items-center align-middle justify-center leading-4">
         <span className="flex flex-row items-center">
           <Dot className="" size={36} />
-          <span className="relative right-2">07</span>
+          <span className="relative right-2">{whyUsBannerContent.sectionNumber}</span>
         </span>
-        <h4 className="uppercase relative right-2">why us?</h4>
+        <h4 className="uppercase relative right-2">{whyUsBannerContent.sectionLabel}</h4>
       </div>
       <h1 className="py-12 font-display text-center w-full wrap-break-word leading-[clamp(3rem,5vw,8rem)] uppercase text-[clamp(3rem,5vw,8rem)] font-semibold tracking-tighter">
-        why us
+        {whyUsBannerContent.title}
       </h1>
       <div className="grid md:grid-cols-4 grid-cols-2 w-full h-150">
         <WhyUsBanner1 />

@@ -5,22 +5,26 @@ import { ChevronRight, Dot, Plus } from "lucide-react";
 import HowWeDoItContainer from "./how-we-do-it-container";
 import { Button } from "./ui/button";
 import { TextRoll } from "./motion-primitives/text-roll";
+import { howWeDoItSectionContent } from "@/constants";
 
 function TextRollButton({
   children,
   className,
   variant,
+  style,
 }: {
   children: string;
   className?: string;
-  variant?: string;
+  variant?: "link";
+  style?: React.CSSProperties;
 }) {
   const [hoverKey, setHoverKey] = useState(0);
 
   return (
     <Button
       className={className}
-      variant={variant as any}
+      variant={variant}
+      style={style}
       onMouseEnter={() => setHoverKey((k) => k + 1)}
     >
       <TextRoll key={hoverKey} duration={0.1}>
@@ -44,21 +48,24 @@ export default function HowWeDoIt() {
             <div className="flex flex-row gap-4 relative right-2 pb-12 text-xs font-mono tracking-tighter items-center align-middle leading-4">
               <span className="flex flex-row items-center">
                 <Dot className="" size={36} />
-                <span className="relative right-2">04</span>
+                <span className="relative right-2">
+                  {howWeDoItSectionContent.sectionNumber}
+                </span>
               </span>
               <h4 className="text-muted-foreground relative right-2">
-                HOW WE DO IT?
+                {howWeDoItSectionContent.sectionLabel}
               </h4>
             </div>
             {/*main Heading*/}
             <div className="flex flex-col h-fit gap-4 pb-24 justify-between md:justify-start">
               <span className="font-display wrap-break-word leading-[clamp(4rem,8vw,8rem)] uppercase text-primary/50 text-[clamp(4rem,8vw,8rem)] font-semibold tracking-tighter">
-                The fast track to{" "}
-                <span className="text-primary">AI Success</span>
+                {howWeDoItSectionContent.titlePrefix}{" "}
+                <span className="text-primary">
+                  {howWeDoItSectionContent.titleHighlight}
+                </span>
               </span>
               <p className="font-display text-muted-foreground">
-                No generic advice. No complex dashboards. Just practical
-                improvements.
+                {howWeDoItSectionContent.description}
               </p>
             </div>
           </div>
@@ -69,8 +76,15 @@ export default function HowWeDoIt() {
         <TextRollButton
           className="uppercase bg-primary/5 rounded-none w-full md:w-1/4 h-18 flex flex-row justify-between px-6 font-display border-0.5 border-b  isolate z-50 relative border-black"
           variant={"link"}
+          style={{
+            backgroundImage:
+              "linear-gradient(to right, #ec4899, #8b5cf6, #3b82f6, #22c55e, #eab308, #f97316, #ef4444)",
+            backgroundSize: "100% 2px",
+            backgroundPosition: "bottom",
+            backgroundRepeat: "no-repeat",
+          }}
         >
-          Start Ai Journey
+          {howWeDoItSectionContent.ctaLabel}
         </TextRollButton>
       </section>
     </>

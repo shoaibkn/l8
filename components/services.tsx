@@ -4,6 +4,7 @@ import { useState } from "react";
 import { Dot, Plus } from "lucide-react";
 import { Button } from "./ui/button";
 import { TextRoll } from "./motion-primitives/text-roll";
+import { servicesSectionContent } from "@/constants";
 
 function TextRollButton({
   children,
@@ -39,31 +40,28 @@ export default function Services() {
           <div className="flex flex-row gap-4 relative right-4 text-xs font-mono tracking-tighter items-center h-fit align-middle leading-4  ">
             <span className="flex flex-row items-center">
               <Dot className="" size={36} />
-              <span className="relative right-2">02</span>
+              <span className="relative right-2">{servicesSectionContent.sectionNumber}</span>
             </span>
             <h4 className="uppercase text-muted-foreground relative right-2">
-              Services
+              {servicesSectionContent.sectionLabel}
             </h4>
           </div>
           <span className="text-[clamp(2rem,4vw,8rem)] tracking-tighter break-normal uppercase font-display font-semibold text-muted-foreground">
-            turning repetitive work into{" "}
-            <span className="text-primary-foreground">time-saving systems</span>
+            {servicesSectionContent.titlePrefix}{" "}
+            <span className="text-primary-foreground">{servicesSectionContent.titleHighlight}</span>
           </span>
         </div>
 
         {/*right*/}
         <div className="flex flex-col justify-between gap-8 w-full md:w-1/2 h-fit md:h-full">
           <p>
-            We provide practical AI consulting and automation services for
-            companies that want results — not just theory. Our work is tailored,
-            transparent, and focused on the areas of your business where AI
-            makes a real impact.
+            {servicesSectionContent.description}
           </p>
           <TextRollButton
             variant="secondary"
             className="uppercase h-16 font-display rounded-full"
           >
-            About us
+            {servicesSectionContent.ctaLabel}
           </TextRollButton>
         </div>
       </div>

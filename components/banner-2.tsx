@@ -3,35 +3,39 @@ import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import { Button } from "./ui/button";
 import { TextLoop } from "./motion-primitives/text-loop";
+import { noSalesBannerContent } from "@/constants";
+import Link from "next/link";
 
 function TextRollButton({
   children,
   className,
   variant,
   style,
+  url,
 }: {
   children: string;
   className?: string;
-  variant?: string;
+  variant?: "ghost" | "default" | "secondary" | "outline" | "link";
   style?: React.CSSProperties;
+  url: string;
 }) {
   const [cycleTrigger, setCycleTrigger] = useState(0);
 
   return (
     <Button
       className={className}
-      variant={variant as any}
+      variant={variant}
       style={style}
       onMouseEnter={() => setCycleTrigger((t) => t + 1)}
+      asChild
     >
-      <TextLoop 
-        cycleTrigger={cycleTrigger} 
-        transition={{ duration: 0.2 }}
-      >
-        <span>{children}</span>
-        <span>{children}</span>
-      </TextLoop>
-      <ChevronRight />
+      <Link href={url}>
+        <TextLoop cycleTrigger={cycleTrigger} transition={{ duration: 0.2 }}>
+          <span>{children}</span>
+          <span>{children}</span>
+        </TextLoop>
+        <ChevronRight />
+      </Link>
     </Button>
   );
 }
@@ -40,10 +44,15 @@ export default function NoSales() {
   return (
     <section className="bg-primary/10">
       {/*https://framerusercontent.com/images/VulBQhVJJgXCyTIKKvhsZMa5TU.png?width=2244&height=715*/}
-      <div className="md:px-12 px-6 pt-24 bg-[url('https://framerusercontent.com/images/VulBQhVJJgXCyTIKKvhsZMa5TU.png')] bg-contain bg-bottom bg-no-repeat w-full h-full min-h-[800px] md:grid md:grid-cols-2 flex flex-col">
+      <div
+        className="md:px-12 px-6 pt-24 bg-contain bg-bottom bg-no-repeat w-full h-full min-h-200 md:grid md:grid-cols-2 flex flex-col"
+        style={{
+          backgroundImage: `url(${noSalesBannerContent.backgroundImage})`,
+        }}
+      >
         <div>
           <h1 className="font-display text-right w-full wrap-break-word leading-[clamp(3rem,5vw,8rem)] uppercase text-[clamp(3rem,5vw,8rem)] font-semibold tracking-tighter">
-            No salespeople. No bots. You'll speak directly with us.
+            {noSalesBannerContent.title}
           </h1>
         </div>
         <div className="w-full flex flex-col md:pt-96 pt-48 md:col-span-2 lg:col-span-1">
@@ -57,11 +66,12 @@ export default function NoSales() {
               backgroundPosition: "bottom",
               backgroundRepeat: "no-repeat",
             }}
+            url="/contact"
           >
-            Start Ai Journey
+            {noSalesBannerContent.ctaLabel}
           </TextRollButton>
           <div className="flex flex-row text-xs text-muted-foreground uppercase tracking-tighter p-6">
-            DEDICATED TO YOUR GROWTH worldwide
+            {noSalesBannerContent.footerLabel}
           </div>
         </div>
       </div>

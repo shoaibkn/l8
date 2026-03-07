@@ -5,22 +5,23 @@ import { Avatar, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
 import Link from "next/link";
 import { useState } from "react";
+import { headerContactUsContent } from "@/constants";
 
 export default function HeaderContactUs() {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
     <Link
-      href="/contact-us"
+      href={headerContactUsContent.href}
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
       className="hidden md:flex flex-row justify-end gap-4 hover:gap-3 transition-all items-center absolute right-8 top-6 cursor-pointer z-[101] w-fit"
     >
       <span className={`text-xs text-right transition-all duration-300 w-42`}>
         <p className="text-muted-foreground">
-          A 30 MINUTE CALL TO CLARIFY YOUR NEXT STEPS.
+          {headerContactUsContent.line1}
         </p>
-        <p className="">ZERO OBLIGATIONS</p>
+        <p className="">{headerContactUsContent.line2}</p>
       </span>
       <div
         className={`flex flex-row-reverse items-center transition-all duration-300 ${isHovered ? "-translate-x-1" : ""}`}
@@ -37,8 +38,8 @@ export default function HeaderContactUs() {
         <Avatar className="w-12 h-12 -mr-2">
           <AvatarImage
             className="border-4 border-primary-foreground"
-            src="https://github.com/shadcn.png"
-            alt="shadcn"
+            src={headerContactUsContent.avatarSrc}
+            alt={headerContactUsContent.avatarAlt}
           />
         </Avatar>
       </div>

@@ -6,9 +6,10 @@ import { Button } from "./ui/button";
 import HeaderContactUs from "./header-contact-us";
 import ReviewAvatars from "./review-avatars";
 import { TextRoll } from "./ui/text-roll";
-import { ClientProgressiveBlurSlider } from "./client-slider";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { heroContent } from "@/constants";
+import Link from "next/link";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -16,10 +17,12 @@ function AnimatedButton({
   children,
   className,
   variant,
+  url,
 }: {
   children: string;
   className?: string;
   variant?: "ghost" | "outline" | "default" | "secondary";
+  url: string;
 }) {
   const [hoverKey, setHoverKey] = useState(0);
 
@@ -28,10 +31,13 @@ function AnimatedButton({
       className={className}
       variant={variant}
       onMouseEnter={() => setHoverKey((k) => k + 1)}
+      asChild
     >
-      <TextRoll key={hoverKey} duration={0.1}>
-        {children}
-      </TextRoll>
+      <Link href={url}>
+        <TextRoll key={hoverKey} duration={0.1}>
+          {children}
+        </TextRoll>
+      </Link>
     </Button>
   );
 }
@@ -56,7 +62,7 @@ export default function Hero() {
           duration: 1,
           ease: "power3.out",
           delay: 0.2,
-        }
+        },
       );
 
       gsap.fromTo(
@@ -159,8 +165,8 @@ export default function Hero() {
             className="absolute inset-0 h-full will-change-transform"
           >
             <Image
-              src="https://framerusercontent.com/images/VRwQ9uHPGoSubtzvWBwjE2utUDU.jpg"
-              alt="Hero Image"
+              src={heroContent.imageSrc}
+              alt={heroContent.imageAlt}
               fill
               className="object-cover"
               priority
@@ -173,45 +179,60 @@ export default function Hero() {
           ref={textRef}
           className="md:w-1/2 w-3/5 md:right-0 absolute flex flex-col justify-center items-start h-full will-change-transform gap-24 pt-48"
         >
-          <div
+          {/*<div
             ref={reviewAvatarsRef}
-            className="pl-6 md:px-0 absolute top-64 opacity-0"
+            className="pl-6 md:px-0 absolute md:top-64 opacity-0"
           >
             <ReviewAvatars />
-          </div>
-
-          {/*<div className="pl-6 md:pl-0">
-            <h3 className="font-display tracking-tighter text-left w-full md:px-0 text-[clamp(1.5rem,4vw,5rem)] font-bold">
-              FOR YOUR BUSINESS
-            </h3>
-            <span className="w-full wrap-normal text-left md:px-0 md:text-lg text-sm font-medium text-muted-foreground">
-              We help businesses apply AI where it actually matters —
-              <p className="text-primary">without the noise</p>
-            </span>
           </div>*/}
         </div>
       </div>
 
-      <div className="absolute w-dvw h-screen flex flex-col justify-center md:text-center text-left pl-6 md:pl-0">
+      <div className="absolute w-dvw h-[calc(100lvh)] flex flex-col justify-center md:text-center text-left pl-6 md:pl-0 gap-12 md:gap-0">
+        <div className="grid md:grid-cols-4">
+          <div></div>
+          <div></div>
+          <div
+            ref={reviewAvatarsRef}
+            className="md:px-0 opacity-0 md:w-full w-1/2 justify-start"
+          >
+            <ReviewAvatars />
+          </div>
+        </div>
         <h1
           ref={headingRef}
-          className="text-[clamp(4rem,12vw,16rem)] tracking-tighter font-bold font-display md:text-nowrap mix-blend-difference text-white will-change-transform"
+          className="md:text-[clamp(4rem,10vw,16rem)] md:px-9 text-left md:leading-[clamp(8rem,8vw,16rem)] leading-[clamp(3rem,2.5vw,4rem)] text-[clamp(3rem,2.5vw,4rem)] tracking-tighter font-bold font-display mix-blend-difference text-white will-change-transform"
           style={{ clipPath: "inset(0 0 100% 0)" }}
         >
-          A CLEAR AI PLAN
+          {heroContent.heading}
         </h1>
         <div className="grid md:grid-cols-4">
           <div></div>
           <div></div>
           <div ref={subTextRef} className="col-span-2 opacity-0">
             <h3 className="font-display tracking-tighter text-left w-full md:px-0 text-[clamp(1.5rem,4vw,5rem)] font-bold">
-              FOR YOUR BUSINESS
+              {heroContent.subheading}
             </h3>
             <span className="w-full wrap-normal text-left md:text-lg text-sm font-medium text-muted-foreground flex flex-row flex-wrap">
-              We help businesses apply AI where it actually matters —
-              <p className="text-primary">without the noise</p>
+              {heroContent.description} -
+              <p className="text-primary">{heroContent.descriptionHighlight}</p>
             </span>
           </div>
+        </div>
+        <div
+          ref={buttonsRef}
+          className="grid md:grid-cols-2 grid-cols-1 md:gap-4 gap-1 md:px-12 px-6 z-10 relative bottom-0 will-change-transform opacity-0"
+        >
+          <AnimatedButton className="md:h-20 h-14 rounded-full" url="/contact">
+            {heroContent.primaryCta}
+          </AnimatedButton>
+          <AnimatedButton
+            className="md:h-20 h-14 rounded-full"
+            variant="secondary"
+            url="#path"
+          >
+            {heroContent.secondaryCta}
+          </AnimatedButton>
         </div>
       </div>
       {/*Image Mobile*/}
@@ -221,8 +242,8 @@ export default function Hero() {
           className="absolute inset-0 will-change-transform"
         >
           <Image
-            src="https://framerusercontent.com/images/VRwQ9uHPGoSubtzvWBwjE2utUDU.jpg"
-            alt="Hero Image"
+            src={heroContent.imageSrc}
+            alt={heroContent.imageAlt}
             fill
             className="object-cover"
             priority
@@ -232,16 +253,17 @@ export default function Hero() {
 
       <div
         ref={buttonsRef}
-        className="grid md:grid-cols-2 grid-cols-1 md:gap-4 gap-1 md:px-12 px-6 z-10 relative bottom-36 will-change-transform opacity-0"
+        className="grid md:grid-cols-2 grid-cols-1 md:gap-4 gap-1 md:px-12 px-6 z-10 relative md:bottom-12 bottom-6 will-change-transform opacity-0"
       >
-        <AnimatedButton className="md:h-20 h-14 rounded-full">
-          SCHEDULE A FREE ASSESSMENT
+        <AnimatedButton className="md:h-20 h-14 rounded-full" url="/contact">
+          {heroContent.primaryCta}
         </AnimatedButton>
         <AnimatedButton
           className="md:h-20 h-14 rounded-full"
           variant="secondary"
+          url="#path"
         >
-          SEE HOW IT WORKS
+          {heroContent.secondaryCta}
         </AnimatedButton>
       </div>
       {/*<div className="w-full flex flex-row md:justify-end pb-24">

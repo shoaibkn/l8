@@ -1,6 +1,6 @@
 "use client";
 
-import { projects } from "@/constants";
+import { moreProjectsContent, projects } from "@/constants";
 import { Dot } from "lucide-react";
 import Image from "next/image";
 import { useRef, useState } from "react";
@@ -81,7 +81,7 @@ export default function MoreProjects() {
           <Dot className="" size={36} />
         </span>
         <h4 className="uppercase text-muted-foreground relative right-2">
-          more projects
+          {moreProjectsContent.sectionLabel}
         </h4>
       </div>
       {/*Projects*/}

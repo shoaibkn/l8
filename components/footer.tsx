@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { footerContent } from "@/constants";
 
 export default function Footer() {
   return (
@@ -8,18 +9,18 @@ export default function Footer() {
           href="/privacy-policy"
           className="hover:bg-primary-foreground hover:text-primary"
         >
-          Privacy Policy
+          {footerContent.privacyLabel}
         </Link>
         <Link
           href="/terms-of-service"
           className="hover:bg-primary-foreground hover:text-primary"
         >
-          Terms of Service
+          {footerContent.termsLabel}
         </Link>
       </div>
       <div></div>
       <div className="text-right">
-        © 2025 Lumin8 Studios. All rights reserved.
+        {footerContent.copyright}
       </div>
     </section>
   );

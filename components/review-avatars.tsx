@@ -1,43 +1,6 @@
 import { Dot } from "lucide-react";
 import { Avatar, AvatarImage } from "./ui/avatar";
-
-const reviews = [
-  {
-    id: 1,
-    name: "John Doe",
-    avatar: "https://github.com/shadcn.png",
-    rating: 5,
-    review: "Great product!",
-  },
-  {
-    id: 2,
-    name: "Jane Smith",
-    avatar: "https://github.com/shadcn.png",
-    rating: 4,
-    review: "Good product!",
-  },
-  {
-    id: 3,
-    name: "Bob Johnson",
-    avatar: "https://github.com/shadcn.png",
-    rating: 3,
-    review: "Average product!",
-  },
-  {
-    id: 4,
-    name: "Alice Brown",
-    avatar: "https://github.com/shadcn.png",
-    rating: 2,
-    review: "Below average product!",
-  },
-  {
-    id: 5,
-    name: "Charlie White",
-    avatar: "https://github.com/shadcn.png",
-    rating: 1,
-    review: "Terrible product!",
-  },
-];
+import { reviewAvatarsContent } from "@/constants";
 
 export default function ReviewAvatars() {
   return (
@@ -45,40 +8,40 @@ export default function ReviewAvatars() {
       <div className="flex flex-row">
         <Avatar className={`border-2 w-8 h-8 border-primary-foreground`}>
           <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="Charlie White"
+            src={reviewAvatarsContent.avatarSrc}
+            alt={reviewAvatarsContent.avatarAlt}
           />
         </Avatar>
         <Avatar
           className={`border-2 w-8 h-8 border-primary-foreground relative -left-4`}
         >
           <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="Charlie White"
+            src={reviewAvatarsContent.avatarSrc}
+            alt={reviewAvatarsContent.avatarAlt}
           />
         </Avatar>
         <Avatar
           className={`border-2 w-8 h-8 border-primary-foreground relative -left-8`}
         >
           <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="Charlie White"
+            src={reviewAvatarsContent.avatarSrc}
+            alt={reviewAvatarsContent.avatarAlt}
           />
         </Avatar>
         <Avatar
           className={`border-2 w-8 h-8 border-primary-foreground relative -left-12`}
         >
           <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="Charlie White"
+            src={reviewAvatarsContent.avatarSrc}
+            alt={reviewAvatarsContent.avatarAlt}
           />
         </Avatar>
         <Avatar
           className={`border-2 w-8 h-8 border-primary-foreground relative -left-16`}
         >
           <AvatarImage
-            src="https://github.com/shadcn.png"
-            alt="Charlie White"
+            src={reviewAvatarsContent.avatarSrc}
+            alt={reviewAvatarsContent.avatarAlt}
           />
         </Avatar>
       </div>
@@ -91,11 +54,11 @@ export default function ReviewAvatars() {
             <Dot className="relative -left-14" />
             <Dot className="relative -left-18" />
           </span>
-          <span className="relative -left-20 text-xs">4.9/5</span>
+          <span className="relative -left-20 text-xs">{reviewAvatarsContent.rating}</span>
         </div>
-        <span className="text-xs text-muted-foreground">
-          BASED ON 230{" "}
-          <span className="text-primary text-xs">VERIFIED REVIEWS</span>
+        <span className="text-xs text-muted-foreground flex flex-col items-start">
+          {reviewAvatarsContent.reviewsPrefix}{" "}
+          <span className="text-primary text-xs">{reviewAvatarsContent.reviewsHighlight}</span>
         </span>
       </div>
     </div>
