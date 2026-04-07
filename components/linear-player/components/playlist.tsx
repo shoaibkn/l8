@@ -94,7 +94,7 @@ export function Playlist() {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <Button aria-label="Open Playlist" size="icon" variant="glass">
+        <Button aria-label="Open Playlist" size="icon" variant="ghost">
           <CardsThreeIcon weight="fill" />
         </Button>
       </DropdownMenuTrigger>

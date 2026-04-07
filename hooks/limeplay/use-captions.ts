@@ -119,6 +119,7 @@ export function useCaptions(): UseCaptionsReturn {
     }
 
     const isVisible = store.getState().textTrackVisible
+    // @ts-expect-error - shaka Player type is missing setTextTrackVisibility
     player.setTextTrackVisibility(!isVisible)
   }
 
@@ -162,6 +163,7 @@ export function useCaptionsStates() {
       return
     }
 
+    // @ts-expect-error - shaka Player type is missing isTextTrackVisible
     const isVisible = player.isTextTrackVisible()
     const activeTrack = store.getState().activeTextTrack
 

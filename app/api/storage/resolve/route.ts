@@ -12,6 +12,7 @@ export async function POST(request: NextRequest) {
   const body = await request.json();
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await (convex.action as any)("storage:resolveBlogImages", {
       coverImage: body.coverImage,
       images: body.images,

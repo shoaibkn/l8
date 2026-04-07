@@ -15,6 +15,7 @@ export async function GET(request: NextRequest) {
   const limit = searchParams.get("limit") ? parseInt(searchParams.get("limit")!) : undefined;
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await (convex.query as any)("enquiries:listEnquiries", {
       search,
       cursor,
@@ -46,6 +47,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await (convex.mutation as any)("enquiries:submitEnquiry", {
       name: body.name,
       email: body.email,

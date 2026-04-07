@@ -11,6 +11,7 @@ export async function GET() {
   const convex = new ConvexHttpClient(convexUrl);
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const settings = await (convex.query as any)("settings:getAllSettings");
     return NextResponse.json(settings);
   } catch (error) {
@@ -32,6 +33,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await (convex.mutation as any)("settings:setSetting", {
       key: body.key,
       value: body.value,

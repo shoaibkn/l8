@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const blogData: any = {
       id: body.id,
     };
@@ -30,6 +31,7 @@ export async function POST(request: NextRequest) {
     if (body.date) blogData.date = body.date;
     if (body.published !== undefined) blogData.published = body.published;
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await (convex.mutation as any)("blogs:updateBlog", blogData);
     return NextResponse.json(result);
   } catch (error) {

@@ -16,6 +16,7 @@ export async function GET(
   const convex = new ConvexHttpClient(convexUrl);
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const blog = await (convex.query as any)("blogs:getBlogBySlug", { slug });
     if (!blog) {
       return NextResponse.json({ error: "Blog not found" }, { status: 404 });

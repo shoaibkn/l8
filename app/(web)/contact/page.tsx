@@ -98,9 +98,9 @@ export default function ContactPage() {
         </div>
         <div className="col-span-3">
           <h3 className="text-left w-full wrap-break-word font-semibold text-3xl">
-            You don't need to prepare slides or technical notes — just share
-            what's on your mind. Whether it's a quick question or a bigger
-            project idea, we'll get back to you with a clear next step.
+            You don&apos;t need to prepare slides or technical notes — just share
+            what&apos;s on your mind. Whether it&apos;s a quick question or a bigger
+            project idea, we&apos;ll get back to you with a clear next step.
           </h3>
           <p className="text-muted-foreground mt-12 w-2/3">
             Every message that comes through this form is read by a real person

@@ -11,6 +11,7 @@ export async function GET() {
   const convex = new ConvexHttpClient(convexUrl);
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const blogs = await (convex.query as any)("blogs:listPublishedBlogs");
     return NextResponse.json(blogs);
   } catch (error) {
@@ -34,6 +35,7 @@ export async function POST(request: NextRequest) {
   try {
     console.log("Received body:", body);
     
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const blogData: any = {
       title: body.title,
       slug: body.slug,
@@ -60,6 +62,7 @@ export async function POST(request: NextRequest) {
 
     console.log("Saving blogData:", blogData);
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await (convex.mutation as any)("blogs:createBlog", blogData);
     return NextResponse.json(result);
   } catch (error) {

@@ -16,6 +16,7 @@ export async function POST(request: NextRequest) {
   }
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const result = await (convex.mutation as any)("enquiries:updateEnquiryStatus", {
       id: body.id,
       status: body.status,

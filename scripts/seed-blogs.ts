@@ -1,4 +1,5 @@
 import { ConvexHttpClient } from "convex/browser";
+import { api } from "@/convex/_generated/api";
 import { news } from "../constants";
 
 const convexUrl = process.env.NEXT_PUBLIC_CONVEX_URL;
@@ -15,7 +16,7 @@ async function seedBlogs() {
   
   for (const blog of news) {
     try {
-      const result = await convex.mutation("blogs:createBlog", {
+      const result = await convex.mutation(api.blogs.createBlog, {
         title: blog.title,
         slug: blog.slug,
         coverImage: blog.image,

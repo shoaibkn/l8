@@ -1,6 +1,7 @@
 import { useMemo, useRef } from "react"
 import { debounce } from "lodash"
 
+/* eslint-disable react-hooks/refs */
 export function useDebounce<T extends (...args: never[]) => void>(
   fn: T,
   ms: number,

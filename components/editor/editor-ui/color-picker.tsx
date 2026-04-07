@@ -1,5 +1,6 @@
 "use client"
 
+/* eslint-disable react-hooks/refs */
 import * as React from "react"
 import * as SliderPrimitive from "@radix-ui/react-slider"
 import { Slot } from "@radix-ui/react-slot"
@@ -795,7 +796,9 @@ interface ColorPickerRootProps
   required?: boolean
 }
 
-const ColorPickerRoot = React.memo((props: ColorPickerRootProps) => {
+const ColorPickerRoot = React.memo(ColorPickerRootComponent)
+function ColorPickerRootComponent(props: ColorPickerRootProps) {
+  /* eslint-disable react-hooks/refs */
   const {
     value: valueProp,
     defaultValue = "#000000",
@@ -866,7 +869,7 @@ const ColorPickerRoot = React.memo((props: ColorPickerRootProps) => {
       />
     </ColorPickerStoreContext.Provider>
   )
-})
+}
 
 interface ColorPickerRootImplProps
   extends Omit<

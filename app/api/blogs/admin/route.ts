@@ -11,6 +11,7 @@ export async function GET() {
   const convex = new ConvexHttpClient(convexUrl);
 
   try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const blogs = await (convex.query as any)("blogs:listBlogs");
     return NextResponse.json(blogs);
   } catch (error) {

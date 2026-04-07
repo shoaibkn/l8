@@ -19,6 +19,7 @@ export async function POST(request: NextRequest) {
     const convex = new ConvexHttpClient(convexUrl);
     
     // Generate upload URL from Convex
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     const uploadResult = await (convex.action as any)("storage:generateUploadUrl");
     const uploadUrl = uploadResult.uploadUrl;
 
@@ -61,6 +62,7 @@ export async function POST(request: NextRequest) {
     let publicUrl = null;
     if (storageId) {
       try {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
         const urlResult = await (convex.action as any)("storage:getFileUrlFromId", { storageId });
         publicUrl = urlResult.url;
         console.log("Got public URL:", publicUrl);
